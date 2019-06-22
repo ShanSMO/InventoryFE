@@ -1,0 +1,374 @@
+<div class="content" >
+
+  <div class="title-div">
+    <app-com-title-bar [title]="'NEW PURCHASE ORDER'"></app-com-title-bar>
+  </div>
+
+  <!-- Success Message -->
+  <div class="success-bg animated bounceIn" style="margin: 15px" *ngIf="isSuccess">
+    <p class="success-text text-left">
+      Purchase order has been successfully created
+    </p>
+  </div>
+
+  <div>
+    <div class="row" style="margin-left: 0;">
+      <div class="col-md-4 customer-d-div">
+        <div class="row " >
+          <div class="col-md-4 p-0">
+            <label>Supplier</label>
+          </div>
+          <div class="col-md-8">
+            <select class="form-control" [(ngModel)]="vendor" [disabled]="orderItemList.length > 0" tabindex="1">
+              <option *ngFor="let supplier of suppliers" [ngValue]="supplier">{{supplier.firstName}} {{supplier.lastName}}</option>
+            </select>
+          </div>
+        </div>
+        <a href="#" data-toggle="modal" data-target="#supplierModal" style="font-size: 12px;float: right;" [style.display]="orderItemList.length > 0 ? 'none': 'block'">
+          New supplier ?
+        </a>
+        <div class="clearfix"></div>
+
+        <!-- Barcode or not -->
+        <div class="row form-group type-selection-box">
+          <div class="col-md-6 text-center">
+            <label class="type-label">By Barcode</label> <br>
+            <input type="radio" name="type" value="BARCODE" [(ngModel)]="type"
+                   [ngModelOptions]="{standalone: true}" (click)="clearForm()" checked>
+          </div>
+          <div class="col-md-6 text-center">
+            <label class="type-label">By Selection</label> <br>
+            <input type="radio" name="type" value="MANUAL" [(ngModel)]="type"
+                   [ngModelOptions]="{standalone: true}" (click)="clearForm()">
+          </div>
+        </div>
+
+        <div class="row" *ngIf="type == 'BARCODE'">
+          <div class="col-md-4 p-0">
+            <label>Barcode</label>
+          </div>
+          <div class="col-md-8" >
+            <input type="text" class="input-box col-md-12" [(ngModel)]="barcode"
+                   [ngModelOptions]="{standalone: true}" (keyup)="loadByBarcode()">
+          </div>
+        </div>
+
+
+
+        <form [formGroup]="orderItemForm">
+          <div class="row">
+            <div class="col-md-4 p-0">
+              <label>Category</label>
+            </div>
+            <div class="col-md-8" >
+              <select class="form-control" [(ngModel)]="selectedCategory" [ngModelOptions]="{standalone: true}"
+                      (change)="loadAllSubCategories($event)" tabindex="2">
+                <option *ngFor="let category of categories"
+                        [ngValue]="category.id">{{category.categoryName}}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4 p-0">
+              <label>S.Category</label>
+            </div>
+            <div class="col-md-8" >
+              <select class="form-control" [(ngModel)]="selectedSubCategory" [ngModelOptions]="{standalone: true}"
+                      (change)="loadAllProductsByCategory($event)" tabindex="2">
+                <option *ngFor="let category of subCategories"
+                        [ngValue]="category.id">{{category.categoryName}}</option>
+              </select>
+            </div>
+          </div>
+
+          <a href="#" data-toggle="modal" data-target="#categoryModal" style="font-size: 12px;float: right;" (click)="openCategoryCreateForm()">
+            New category ?
+          </a>
+          <div class="clearfix"></div>
+
+          <div class="row">
+            <div class="col-md-4 p-0">
+              <label>Product</label>
+            </div>
+            <div class="col-md-8" >
+              <select class="form-control" [formControlName]="'product'" [(ngModel)]="product" tabindex="3" (change)="loadProductById(product)">
+                <option *ngFor="let product of productList"
+                        [ngValue]="product.id">{{product.productName}}</option>
+              </select>
+            </div>
+          </div>
+          <a href="#" data-toggle="modal" data-target="#productModal" style="font-size: 12px;float: right;" (click)="newProductOpen()">
+            New product ?
+          </a>
+          <div class="clearfix"></div>
+
+          <div class="row">
+            <div class="col-md-4 p-0">
+              <label>Quantity</label>
+            </div>
+            <div class="col-md-8">
+              <input type="text" placeholder="Quantity" class="input-box col-md-12" formControlName="quantity" [(ngModel)]="qty" tabindex="4">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4 p-0">
+              <label>Unit Price ( {{currency.currency.symbol}} )</label>
+            </div>
+            <div class="col-md-8">
+              <input type="text" placeholder="Unit Price" class="input-box col-md-12" formControlName="buyingPrice" [(ngModel)]="unitPrice" tabindex="5">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4 p-0">
+              <label>Selling Price ( {{currency.currency.symbol}} )</label>
+            </div>
+            <div class="col-md-8">
+              <input type="text" placeholder="Selling Price" class="input-box col-md-12"
+                     formControlName="sellingPrice" tabindex="6">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4 p-0">
+              <label>Discount (%)</label>
+            </div>
+            <div class="col-md-8">
+              <input type="text" placeholder="Discount" class="input-box col-md-12"
+                     formControlName="discount" tabindex="7" [(ngModel)]="discount">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4 p-0">
+              <label>Total ( {{currency.currency.symbol}} )</label>
+            </div>
+            <div class="col-md-8">
+              <input type="text" placeholder="Total" class="input-box col-md-12"
+                     formControlName="subTotal"
+                     [value]="(qty * unitPrice) - discount" tabindex="8" readonly>
+            </div>
+          </div>
+
+          <div style="text-align: right;margin-top: 5px;">
+            <button type="reset" class="btn btn-warning" style="margin-right: 5px;">Clear</button>
+            <button class="btn btn-success" (click)="addOrderItemToList()" tabindex="9" type="button"
+                    [disabled]="orderItemForm.invalid || vendor === null">Add item</button>
+          </div>
+        </form>
+      </div>
+
+
+      <div class="col-md-4 order-div">
+
+        <!-- Supplier Details -->
+        <div style="width: 100%;height: 160px;border: 1px solid #52adc0;margin-bottom:5px;">
+          <h6 class="sup-title">Supplier Details</h6>
+          <div style="padding-left: 20px;">
+            <ul class="sup-p" *ngIf="vendor != null">
+              <li> {{vendor.firstName}} {{vendor.lastName}} </li>
+              <li> {{vendor.emailAddress}} </li>
+              <li> {{vendor.phoneNumber}} </li>
+              <li> {{vendor.website}} </li>
+            </ul>
+          </div>
+
+        </div>
+        <!-- Product Details -->
+        <div style="width: 100%;height: 160px;border: 1px solid #52adc0;">
+          <h6 class="sup-title">Product Details</h6>
+          <div style="padding-left: 20px;">
+            <ul class="sup-p" *ngIf="selectedProduct != null">
+              <li> Name: &nbsp;{{selectedProduct.productName}}</li>
+              <li> Model: &nbsp;{{selectedProduct.productModel}}</li>
+              <li> Code: &nbsp;{{selectedProduct.productCode}} </li>
+              <li> Category: &nbsp;{{selectedProduct.category.categoryName}} </li>
+              <li (click)="viewImage(selectedProduct.productImageUrl)" data-toggle="modal"
+                  data-target="#imageModal" style="cursor: pointer">
+                <i class="fa fa-picture-o"></i> &nbsp;
+                <p style="    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;">{{ selectedProduct.productImageUrl}} </p></li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-md-4 order-div">
+        <div style="width: 100%;height: 100px;border: 1px solid #8c8585;margin-bottom:5px;text-align: center;">
+          <h4 style="color: #00444b;margin: 15px 0 0 0;font-weight: 600;">SUB TOTAL </h4>
+          <h2 STYLE="font-size: 25px;color: #07888d;">{{ totalAmount | currency: 'Rs. '}}</h2>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div style="background: #fff" *ngIf="orderItemList.length > 0">
+    <div style="padding: 15px;">
+      <table class="table table-bordered ">
+        <thead>
+        <tr>
+          <th scope="col" class="text-center">#</th>
+          <th scope="col" class="text-center">Item</th>
+          <th scope="col" class="text-center">Quantity</th>
+          <th scope="col" class="text-center">Unit price ( {{currency.currency.symbol}} )</th>
+          <th scope="col" class="text-center">Discount ( {{currency.currency.symbol}} )</th>
+          <th scope="col" class="text-center">Selling Price ( {{currency.currency.symbol}} )</th>
+          <th scope="col" class="text-center">Sub Total ( {{currency.currency.symbol}} )</th>
+          <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let orderItem of orderItemList;let id = index;">
+          <th scope="row" class="text-center">{{id + 1}}</th>
+          <td class="p-l-15">{{orderItem.product.productName}} | {{orderItem.product.productCode}} </td>
+          <td class="text-center">{{orderItem.quantity}}</td>
+          <td class="text-right p-r-15">{{orderItem.buyingPrice| currency: ' '}}</td>
+          <td class="text-right p-r-15">{{orderItem.discount| currency: ' '}}</td>
+          <td class="text-right p-r-15">{{orderItem.sellingPrice| currency: ' '}}</td>
+          <td class="text-right p-r-15">{{orderItem.subTotal| currency: ' '}}</td>
+          <td class="text-center">
+            <i class="fa fa-remove" (click)="removeItemFromList(orderItem)"></i> &nbsp;
+          </td>
+        </tr>
+
+        </tbody>
+      </table>
+
+      <div  style="width: 100%;margin-left: 0;">
+        <div class="row" style="height: 30px;background: #0d9679;margin: 15px 0;">
+          <div class="col-md-7"></div>
+          <div class="col-md-5 row">
+            <div class="col-md-6">
+              <h6 class="sub-tot text-left">Total( Rs. )</h6>
+            </div>
+            <div class="col-md-6">
+              <h6 class="sub-tot text-right">{{totalAmount| currency:' '}}</h6>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" style="margin-top: 10px;">
+          <div class="col-md-7"></div>
+          <div class="col-md-5 row">
+            <div class="col-md-6">
+              <h6 class="text-left" style="font-size: 14px;">Paid( Rs. )</h6>
+            </div>
+            <div class="col-md-6">
+              <input type="text" class="form-control input-box text-right" placeholder="Paid amount" [(ngModel)]="paidAmount">
+            </div>
+          </div>
+        </div>
+
+        <div class="row" style="margin-top: 10px;">
+          <div class="col-md-7"></div>
+          <div class="col-md-5 row">
+            <div class="col-md-6">
+              <h6 class="text-left" style="font-size: 14px;">Balance( Rs. )</h6>
+            </div>
+            <div class="col-md-6 text-right">
+              <p style="font-size: 14px;"> {{ ((paidAmount - totalAmount) > 0 ? (paidAmount - totalAmount) : 0) | currency:' '}}  </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin: 15px 0;text-align: right;padding: 15px;">
+      <button class="btn btn-success" (click)="createUpdatePo()">Finish</button>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true" *ngIf="product != null">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="imageModalLabel" style="font-size: 20px;
+color: #1d7875;
+font-weight: 600;">{{product.productName}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <div>
+          <img style="width: 100%;" [src]="imageUrl">
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="supplierModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+  <div class="modal-dialog" role="document" style="max-width: 780px;">
+    <div class="modal-content" style="width: 100%;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel" style="font-size: 16px;">
+          CREATE NEW SUPPLIER
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-common-supplier-form [supplierData]="null" [type]="'Create'"></app-common-supplier-form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="loadAllSuppliers()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" *ngIf="createCategory">
+  <div class="modal-dialog" role="document" style="max-width: 780px;">
+    <div class="modal-content" style="width: 100%;">
+      <div class="modal-header">
+        <h5 class="modal-title" style="font-size: 16px;">
+          CREATE NEW CATEGORY
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-common-category-form ></app-common-category-form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="loadAllCategories()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+  <div class="modal-dialog" role="document" style="max-width: 780px;">
+    <div class="modal-content" style="width: 100%;">
+      <div class="modal-header">
+        <h5 class="modal-title" style="font-size: 16px;">
+          CREATE NEW PRODUCT
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="newProductClose()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-common-product-form [type]="'CREATE'" [selectedCategory]="selectedCategory" *ngIf="createProduct"></app-common-product-form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="newProductClose()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

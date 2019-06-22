@@ -1,0 +1,48 @@
+<div class="content" style="padding: 15px;">
+
+  <div class="layout-wrapper row ">
+    <div class="col-md">
+      <div class="row" style="padding: 10px 10px 0 10px;">
+
+        <div class="col-md-3 col-sm-4 dashboard-item form-group" *ngFor="let stockItem of stock">
+          <div class="card" style="height: 400px;">
+            <div style="padding: 15px;">
+              <div  style="margin: 0 auto;height: 100px;max-width: 100%;" [style.content]="'url(' + resourceUrl + stockItem.category.categoryImage + ')'">
+              </div>
+            </div>
+
+            <div class="card-body">
+              <h5 class="card-title">{{stockItem.category.categoryName}}</h5>
+            </div>
+            <ul class="list-group list-group-flush" style="max-height: 160px;
+    overflow-y: auto;">
+              <li class="list-group-item" *ngFor="let product of stockItem.items">
+                {{product.category.categoryName}}
+                <ol>
+                  <li *ngFor="let items of product.stockItem">
+                    {{items.product.productName}} - {{items.count }}
+                  </li>
+                </ol>
+                </li>
+            </ul>
+            <div class="card-body">
+              <!--<a href="#" class="card-link" style="width:auto;text-align: center;background: #0d5881;font-weight: 600;border: 1px solid #004d50;-->
+<!--border-radius: 3px;    bottom: 5px;-->
+    <!--position: absolute;-->
+    <!--left: 5px;-->
+    <!--right: 5px;">View more</a>-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="col-md-3">
+
+    </div>
+  </div>
+
+
+</div>

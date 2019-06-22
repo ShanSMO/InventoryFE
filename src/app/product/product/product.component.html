@@ -1,0 +1,157 @@
+<div class="content" >
+
+  <div style="border-bottom: 1px solid #686868;width: 100%;margin: 0 10px;">
+    <app-com-title-bar [title]="'ADD NEW PRODUCT'"></app-com-title-bar>
+  </div>
+
+  <!-- Success Message -->
+  <div class="msg-abs success-bg animated bounceIn" style="margin: 15px;width: auto;" *ngIf="isSuccess">
+    <p class="success-text text-left">
+      Product has been successfully created
+    </p>
+  </div>
+
+  <!-- ERROR Message -->
+  <div class="msg-abs error-bg animated bounceIn" style="margin: 15px;width: auto;" *ngIf="isError">
+    <p class="error-text text-left">
+      {{error}}
+    </p>
+  </div>
+
+  <form [formGroup]="productForm">
+    <div class="row product-form-bg">
+      <div class="col-md-5 customer-d-div">
+
+        <div class="row ">
+          <div class="col-md-3">
+            <label>category</label>
+          </div>
+          <div class="col-md-9" formGroupName="category">
+            <select class="form-control" [formControlName]="'id'" tabindex="1" (change)="loadAllSubCategories()">
+              <option *ngFor="let category of categories" [value]="category.id">{{category.categoryName}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row ">
+          <div class="col-md-3">
+            <label>sub category</label>
+          </div>
+          <div class="col-md-9" formGroupName="subCategory">
+            <select class="form-control" [formControlName]="'id'" tabindex="1">
+              <option *ngFor="let category of subCategories" [value]="category.id">{{category.categoryName}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="row new-cat-bg">
+          <a href="#" class="new-cat-link" data-toggle="modal" data-target="#categoryModal" (click)="openCategoryCreateForm()">
+            New category ?
+          </a>
+        </div>
+
+        <div class="row ">
+          <div class="col-md-3">
+            <label>Brand</label>
+          </div>
+          <div class="col-md-9" formGroupName="brand">
+            <select class="form-control" [formControlName]="'id'" tabindex="2">
+              <option *ngFor="let brand of brandList" [value]="brand.id">{{brand.brandName}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row ">
+          <div class="col-md-3">
+            <label>Model</label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" placeholder="Product model" class="input-box col-md-12" formControlName="productModel" tabindex="3">
+          </div>
+        </div>
+
+
+        <div class="row ">
+          <div class="col-md-3">
+            <label>Barcode</label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" placeholder="Product barcode" class="input-box col-md-12" formControlName="barcode" tabindex="3">
+          </div>
+        </div>
+
+        <div class="row ">
+          <div class="col-md-3">
+            <label>Product Name</label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" placeholder="Product name" class="input-box col-md-12"
+                   formControlName="productName" [(ngModel)]="description" tabindex="4">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <label>Description</label>
+          </div>
+          <div class="col-md-9">
+            <textarea class="form-control" formControlName="description" [value]="description" tabindex="5"></textarea>
+          </div>
+        </div>
+
+        <div>
+          <div style="float: right;margin-top: 5px;">
+            <button type="reset" class="btn btn-warning" style="margin-right: 5px;">Clear</button>
+            <button class="btn btn-success" (click)="createProduct()" type="button" tabindex="6"
+                    [disabled]="productForm.invalid">Save Product</button>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-md-4 customer-d-div">
+        <div class="row" style="position: relative;">
+          <div style="background: #f6f6f6; height: 200px;width: 100%;border: 1px solid;">
+            <div class="col-md-12" style="height: 100%;width: 100%;object-fit: contain;"
+                 [style.content]="imageForView">
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <div style="position: relative;text-align: center;margin-bottom: 15px;">
+              <button class="btn btn-success" style="position: absolute;margin: 5px 0;width: 100%;">
+                <i class="fa fa-camera" aria-hidden="true"></i>
+                Choose / Capture Product Image </button>
+              <input (change)="readFile($event)" type="file" style="opacity: 0;width: 100%;height: 30px;margin-top: 5px;cursor: pointer;">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 text-center">
+        <p style="font-size: 50px;margin: 0;">{{productCount}}</p>
+        <p style="font-size: 25px;">Products</p>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" *ngIf="createCategory">
+  <div class="modal-dialog" role="document" style="max-width: 780px;">
+    <div class="modal-content" style="width: 100%;">
+      <div class="modal-header">
+        <h5 class="modal-title" style="font-size: 16px;">
+          CREATE NEW CATEGORY
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-common-category-form ></app-common-category-form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="loadAllCategories()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

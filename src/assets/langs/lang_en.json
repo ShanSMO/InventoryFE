@@ -1,0 +1,12 @@
+{
+  "ACT_OK": "Ok",
+  "ACT_CANCEL": "Cancel",
+  "ACT_BLOCK": "Block",
+  "ACT_VIEW": "View",
+  "ACT_LOGIN": "Login",
+  "ACT_REGISTER": "Register",
+  "ACT_CREATE": "Create",
+  "ACT_SAVE": "Save",
+  "ACT_UPLOAD": "Upload"
+
+}

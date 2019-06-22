@@ -1,0 +1,106 @@
+<div class="content-bg">
+  <div style="border-bottom: 1px solid #686868;width: 100%;margin: 0 10px;">
+    <app-com-title-bar [title]="'BALANCE SHEET'"></app-com-title-bar>
+  </div>
+
+
+  <!-- Information Message -->
+  <div class="info-bg" style="margin: 15px;">
+    <p class="info-text text-left">
+      <strong>Note : </strong>
+      Please select relevant date ranges to get more past data
+    </p>
+  </div>
+
+
+  <div style="padding: 15px;border-bottom:1px solid #d0d0d0;">
+    <form [formGroup]="requestForm">
+      <div class="row">
+        <div style="margin-right: 20px;">
+          <label>From</label>
+          <ejs-datepicker [max]="maxDate"
+                          [allowEdit]="false"  [showClearButton]="true"
+                          (close)="setDate()" [formControlName]="'fromDate'" [(ngModel)]="fromDate">
+          </ejs-datepicker>
+        </div>
+
+        <div>
+          <label>To</label>
+          <ejs-datepicker [max]="maxDate"
+                          [allowEdit]="false"  [showClearButton]="true"
+                          (close)="setDate()" [formControlName]="'toDate'" [(ngModel)]="toDate">
+          </ejs-datepicker>
+        </div>
+      </div>
+    </form>
+  </div>
+
+
+  <div *ngIf="dataSet !== null">
+    <div style="padding: 10px 0;border-bottom:1px solid #d0d0d0;">
+      <div style="border-bottom: 1px solid #d0d0d0">
+        <p class="title_1">Daily Income and Expense Details</p>
+        <p class="title_2">{{fromDate | date : 'yyyy-MM-dd '}} 8:00 AM - {{toDate | date : 'yyyy-MM-dd hh:mm '}} PM</p>
+      </div>
+      <div class="row">
+        <div class="col-md-4" style="padding: 10px 0;border-right: 1px solid #d0d0d0;">
+          <p class="text-center" style="font-size: 18px;">Total Earn</p>
+          <p class="text-center" style="font-size: 25px;color: #5c5c5c;font-weight: 700;">{{totalIncome|currency:'Rs. '}}</p>
+        </div>
+        <div class="col-md-4" style="padding: 10px 0;border-right: 1px solid #d0d0d0;">
+          <p class="text-center" style="font-size: 18px;">Profit</p>
+          <p class="text-center" style="font-size: 25px;color: #5c5c5c;font-weight: 700;">{{(totalIncome-totalExpense)|currency:'Rs. '}}</p>
+        </div>
+        <div class="col-md-4" style="padding: 10px 0;">
+          <p class="text-center" style="font-size: 18px;">Total Cost</p>
+          <p class="text-center" style="font-size: 25px;color: #5c5c5c;font-weight: 700;">{{totalExpense|currency:'Rs. '}}</p>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row" *ngIf="incomeSet.length > 0 || expenseSet.length > 0">
+      <div class="col-md-6" style="border-right: 1px solid #d0d0d0;padding: 0 0 15px 15px;">
+        <div>
+          <h5 class="header-title in-head">Sales</h5>
+        </div>
+        <div>
+          <ol style="font-size: 12px;">
+            <li *ngFor="let income of incomeSet">
+              <div class="row">
+                <div class="col-md-8">{{income.productName}}</div>
+                <div class="col-md-1 text-right">{{income.totalCount}}</div>
+                <div class="col-md-3 text-right">{{income.totalIncome|currency:' '}}</div>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </div>
+      <div class="col-md-6" style="padding: 0 15px 15px 0;">
+        <div>
+          <h5 class="header-title ex-head">Cost</h5>
+        </div>
+        <div>
+          <ol style="font-size: 12px;">
+            <li *ngFor="let expense of expenseSet">
+              <div class="row">
+                <div class="col-md-8">{{expense.productName}}</div>
+                <div class="col-md-1 text-right">{{expense.totalCount}}</div>
+                <div class="col-md-3 text-right">{{expense.totalIncome |currency:' '}}</div>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="incomeSet.length <= 0 && expenseSet.length <= 0">
+      <div class="no-item-div">
+        <p class="no-items">No Records Found</p>
+        <p class="no-items">අදාල කාල පරාසයට ගැලපෙන වාර්තා නොමැත.</p>
+      </div>
+    </div>
+
+  </div>
+
+</div>

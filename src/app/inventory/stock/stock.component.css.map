@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,eAAe;EACb,OAAO,EAAE,KAAK;;AAEhB,OAAO;EACL,MAAM,EAAE,iBAAiB;EACzB,UAAU,EAAE,OAAO;EACnB,KAAK,EAAE,OAAO",
+"sources": ["stock.component.sass"],
+"names": [],
+"file": "stock.component.css"
+}

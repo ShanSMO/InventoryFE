@@ -1,0 +1,28 @@
+<div class="row">
+
+  <form [formGroup]="searchForm" *ngIf="searchOptions.length > 0">
+    <div formArrayName="searchOptions"  class="row" style="margin: 0;">
+      <div *ngFor="let formOptions of searchForm.get('searchOptions').controls; let id = index;" [formGroupName]="id" style="padding:5px;">
+          <p class="search-label">{{formOptions.get('label').value}}</p>
+          <input type="text" placeholder="Searching for ..." *ngIf="formOptions.get('type').value == 'TEXT' || formOptions.get('type').value == 'NUMBER'"
+                 formControlName="value" (keyup)="search()">
+          <ejs-datepicker
+            [allowEdit]="false"  [showClearButton]="true"
+            [formControlName]="'value'"
+            *ngIf="formOptions.get('type').value == 'DATE'" (close)="search()">
+          </ejs-datepicker>
+          <select class="form-control" *ngIf="formOptions.get('type').value == 'SELECT'" [formControlName]="'value'" (change)="search()">
+            <option *ngFor="let selectValue of formOptions.get('options').value" [value]="selectValue.key">{{selectValue.value}}</option>
+          </select>
+      </div>
+    </div>
+  </form>
+
+  <!--<div style="padding: 5px;">-->
+    <!--<p>&nbsp;</p>-->
+    <!--<button class="btn btn-success" (click)="search()">-->
+      <!--<i class="fa fa-search"></i>-->
+      <!--&nbsp; Search-->
+    <!--</button>-->
+  <!--</div>-->
+</div>

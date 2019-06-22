@@ -1,0 +1,142 @@
+<div class="content" >
+
+
+
+  <div>
+    <app-menu-bar [menuList]="menuItemList"></app-menu-bar>
+  </div>
+
+
+  <form [formGroup]="productForm">
+    <div class="row" style="margin-left: 0;margin-top: 20px;margin-right: 0;background: #fff;padding: 5px;">
+
+      <div class="col-md-5 customer-d-div">
+
+        <div class="row ">
+          <div class="col-md-3">
+            <label>Product Code</label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" placeholder="Product Code" class="input-box col-md-12" formControlName="productCode">
+          </div>
+        </div>
+
+        <div class="row ">
+          <div class="col-md-3">
+            <label>Barcode</label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" placeholder="Product barcode" class="input-box col-md-12" formControlName="barcode">
+          </div>
+        </div>
+
+        <div class="row ">
+          <div class="col-md-3">
+            <label>Brand</label>
+          </div>
+          <div class="col-md-9" formGroupName="brand">
+            <select class="form-control" [formControlName]="'id'">
+              <option *ngFor="let brand of brandList" [value]="brand.id">{{brand.brandName}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row ">
+          <div class="col-md-3">
+            <label>Product Name</label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" placeholder="Product name" class="input-box col-md-12" formControlName="productName">
+          </div>
+        </div>
+
+        <div class="row ">
+          <div class="col-md-3">
+            <label>category</label>
+          </div>
+          <div class="col-md-9" formGroupName="category">
+            <select class="form-control" [formControlName]="'id'">
+              <option *ngFor="let category of categories" [value]="category.id">{{category.categoryName}}</option>
+            </select>
+          </div>
+          <a href="#" data-toggle="modal" data-target="#categoryModal" style="font-size: 12px;float: right;" (click)="openCategoryCreateForm()">
+            New category ?
+          </a>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <label>Description</label>
+          </div>
+          <div class="col-md-9">
+            <textarea class="form-control" formControlName="description"></textarea>
+          </div>
+        </div>
+
+        <div class="">
+          <div style="float: right;margin-top: 5px;">
+            <button class="btn btn-success" (click)="createProduct()">Save Product</button>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-md-4 customer-d-div">
+        <div class="row" style="position: relative;">
+          <div style="background: #f6f6f6; height: 200px;width: 100%;border: 1px solid;">
+            <div class="col-md-12" style="height: 100%;width: 100%;object-fit: contain;"
+                 [style.content]="imageForView">
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <div style="position: relative;text-align: center;margin-bottom: 15px;">
+              <button class="btn btn-success" style="position: absolute;margin: 5px 0;width: 100%;">
+                <i class="fa fa-camera" aria-hidden="true"></i>
+                Choose / Capture Product Image </button>
+              <input (change)="readFile($event)" type="file" style="opacity: 0;width: 100%;height: 30px;margin-top: 5px;cursor: pointer;">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+  </form>
+
+
+  <div class="col-md-12 customer-d-div" style="margin-top: 10px;background: #ffffff;">
+    <table class="table table-bordered ">
+      <thead>
+      <tr>
+        <th scope="col" class="text-center">#</th>
+        <th scope="col" class="text-center">Product code</th>
+        <th scope="col" class="text-center">Barcode</th>
+        <th scope="col" class="p-l-15 text-left">Product name</th>
+        <th scope="col" class="p-l-15 text-left">Brand</th>
+        <th scope="col" class="p-l-15 text-left">Product Category</th>
+        <th scope="col" class="p-l-15 text-left">Description</th>
+        <th scope="col"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let product of productList;let id = index;" style="cursor: pointer">
+        <th class="text-center">{{id+1 }}</th>
+        <td>{{product.productCode}}</td>
+        <td>{{product.barcode}}</td>
+        <td>{{product.productName}}</td>
+        <td>{{product.brand.brandName}}</td>
+        <td>{{product.category.categoryName}}</td>
+        <td>{{product.description}}</td>
+        <td class="text-center">
+          <i class="fa fa-remove"></i> &nbsp;
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+

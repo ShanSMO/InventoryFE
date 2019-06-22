@@ -1,0 +1,123 @@
+<div style="background: #fff;">
+
+  <div style="border-bottom: 1px solid #686868;width: 100%;margin: 0 10px;">
+    <app-com-title-bar [title]="'SUPPLIERS LIST'"></app-com-title-bar>
+  </div>
+
+  <div style="margin-top: 15px;padding: 5px;">
+
+    <!-- Information Message -->
+    <div [class]="actionMessage.type === 'SUCCESS' ? 'msg-abs success-bg animated bounceIn ' : actionMessage.type === 'ERROR' ? 'msg-abs error-bg animated bounceIn ' : 'msg-abs info-bg animated bounceIn '" *ngIf="actionMessage.hasMessage">
+      <p [class]="actionMessage.type === 'SUCCESS' ? 'success-text text-left' : actionMessage.type === 'ERROR' ? 'error-text text-left' : 'info-text text-left'">
+        {{actionMessage.message}}
+      </p>
+    </div>
+
+    <div style="padding: 0 10px;">
+      <app-search [searchOptions]="searchOptions" (searchRequest)="searchSupplier($event)"></app-search>
+    </div>
+
+    <div>
+
+      <div *ngIf="suppliers.length <= 0" class="no-item-div">
+        <p class="no-items">No Records Found</p>
+      </div>
+      <div *ngIf="suppliers.length > 0">
+        <div style="height: 300px;">
+          <table class="table table-bordered ">
+            <thead>
+            <tr>
+              <th scope="col" class="text-center">#</th>
+              <th scope="col" class="p-l-15 text-left">Supplier code</th>
+              <th scope="col" class="p-l-15 text-left">Supplier name</th>
+              <th scope="col" class="p-l-15 text-left">Contact number</th>
+              <th scope="col" class="p-l-15 text-left">Fax number</th>
+              <th scope="col" class="p-l-15 text-left">E-mail address</th>
+              <th scope="col" class="p-l-15 text-left">Address</th>
+              <th scope="col" class="p-l-15 text-left">Status</th>
+              <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let supplier of suppliers;let id = index;" style="cursor: pointer">
+              <th scope="row" class="text-center">
+                {{ ((id + 1 )%10 !== 0) ? currentPage: ''}}{{((id + 1)%10 === 0) ? (10 * (currentPage + 1)) :  id + 1}}
+              </th>
+              <td class="p-l-15">{{supplier.vendorCode}}</td>
+              <td class="p-l-15">{{supplier.firstName}} {{supplier.lastName}}</td>
+              <td class="p-l-15">{{supplier.phoneNumber}} </td>
+              <td class="p-l-15">{{supplier.faxNumber}} </td>
+              <td class="p-l-15">{{supplier.emailAddress}} </td>
+              <td class="p-l-15">{{supplier.address.houseNo}}, {{supplier.address.street}},{{supplier.address.city}} </td>
+              <td class="p-l-15">{{supplier.status}}</td>
+              <td class="text-center">
+                <i class="fa fa-remove" (click)="selectForDelete(supplier.id)" data-toggle="modal" data-target="#supDel"></i> &nbsp;
+                <i class="fa fa-edit" data-target="#supplierEditView" data-toggle="modal" (click)="setSupplierData(supplier)"></i> &nbsp;
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <app-pagination [recordsPerPage]="10"
+                          [recordCount]="totalRecords"
+                          *ngIf="totalRecords > 0"
+                          (goToThePage)="goToPage($event)">
+          </app-pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<div class="modal fade" id="supplierEditView" tabindex="-1" role="dialog"
+     aria-labelledby="customerViewModalLabel" aria-hidden="true" *ngIf="selectedSupplier != null">
+  <div class="modal-dialog" role="document" style="max-width: 750px;">
+    <div class="modal-content" style="width: 100%;">
+      <div class="modal-header">
+        <h5 class="modal-title sup-edit-pop" id="customerViewModalLabel" style="font-size: 16px;">
+
+          {{selectedSupplier.firstName}} {{selectedSupplier.lastName}}<br>
+          ({{selectedSupplier.vendorCode}})
+
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="loadCurrentPage()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="color: #000">
+        <app-common-supplier-form [supplierData]="selectedSupplier" (createSupplierEmit)="closePopUp()"></app-common-supplier-form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="loadCurrentPage()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="supDel" tabindex="-1" role="dialog"
+     aria-labelledby="customerViewModalLabel" aria-hidden="true" *ngIf="selectedSupplierD != null">
+  <div class="modal-dialog" role="document" style="max-width: 400px;">
+    <div class="modal-content" style="width: 100%;">
+      <div class="modal-header">
+        <h5 class="modal-title sup-edit-pop" id="supplierViewModalLabel" style="font-size: 16px;">
+          Delete Supplier
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="color: #000">
+        <div style="width: 100%">
+          <p style="text-align: center;font-size: 15px;">Are you sure you want to delete the selected category ?</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="deleteSupplier('Y')" >Yes</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deleteSupplier('N')">No</button>
+      </div>
+    </div>
+  </div>
+</div>

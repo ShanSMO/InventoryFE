@@ -1,0 +1,136 @@
+<form [formGroup]="productForm">
+  <!-- Success Message -->
+  <div class="success-bg animated bounceIn" style="margin: 15px;width: auto;" *ngIf="isSuccess">
+    <p class="success-text text-left">
+      Category has been successfully created
+    </p>
+  </div>
+
+  <!-- ERROR Message -->
+  <div class="error-bg animated bounceIn" style="margin: 15px;width: auto;" *ngIf="isError">
+    <p class="error-text text-left">
+      {{error}}
+    </p>
+  </div>
+
+  <div class="row" style="margin-left: 0;margin-top: 20px;margin-right: 0;background: #fff;padding: 5px;">
+    <div class="col-md-6 customer-d-div">
+
+      <div class="row ">
+        <div class="col-md-3">
+          <label>Category</label>
+        </div>
+        <div class="col-md-9" formGroupName="category">
+          <select class="form-control" [formControlName]="'id'" (change)="loadAllSubCategories()"
+                  [style.background-color]="isReadOnly ? '#e9ecef' : 'none'"
+                  [style.pointer-events]="isReadOnly ? 'none' : 'auto'">
+            <option *ngFor="let category of categories" [value]="category.id">{{category.categoryName}}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row ">
+        <div class="col-md-3">
+          <label>S.category</label>
+        </div>
+        <div class="col-md-9" formGroupName="subCategory">
+          <select class="form-control" [formControlName]="'id'" tabindex="1"
+                  [style.background-color]="isReadOnly ? '#e9ecef' : 'none'"
+                  [style.pointer-events]="isReadOnly ? 'none' : 'auto'">
+            <option *ngFor="let category of subCategories" [value]="category.id">{{category.categoryName}}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row ">
+        <div class="col-md-3">
+          <label>Brand</label>
+        </div>
+        <div class="col-md-9" formGroupName="brand">
+          <select class="form-control" [formControlName]="'id'"
+                  [style.pointer-events]="isReadOnly ? 'none' : 'auto'"
+                  [style.background-color]="isReadOnly ? '#e9ecef' : 'none'" >
+            <option *ngFor="let brand of brandList" [value]="brand.id">{{brand.brandName}}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row ">
+        <div class="col-md-3">
+          <label>Model</label>
+        </div>
+        <div class="col-md-9">
+          <input type="text" placeholder="Product model" class="input-box col-md-12"
+                 formControlName="productModel">
+        </div>
+      </div>
+
+      <div class="row ">
+        <div class="col-md-3">
+          <label>Barcode</label>
+        </div>
+        <div class="col-md-9">
+          <input type="text" placeholder="Product barcode" class="input-box col-md-12"
+                 formControlName="barcode" [style.background-color]="isReadOnly ? '#e9ecef' : 'none'"
+                 [style.pointer-events]="isReadOnly ? 'none' : 'auto'">
+        </div>
+      </div>
+
+      <div class="row ">
+        <div class="col-md-3">
+          <label>Name</label>
+        </div>
+        <div class="col-md-9">
+          <input type="text" placeholder="Product name" class="input-box col-md-12"
+                 formControlName="productName">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">
+          <label>Description</label>
+        </div>
+        <div class="col-md-9">
+          <textarea class="form-control" formControlName="description" [value]="description"></textarea>
+        </div>
+      </div>
+
+      <div class="row" style="margin-top: 3px;" *ngIf="type == 'UPDATE'">
+        <div class="col-md-3">
+          <label>Status</label>
+        </div>
+        <div class="col-md-9">
+          <select class="form-control" formControlName="status">
+            <option *ngFor="let status of activeStatus" [value]="status.key">{{status.value}}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="">
+        <div style="float: right;margin-top: 5px;">
+          <button class="btn btn-success" (click)="createProduct()" [disabled]="productForm.invalid">{{type == 'UPDATE' ? 'Update' : 'Create'}} Product</button>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-md-6 customer-d-div">
+      <div class="row" style="position: relative;">
+        <div style="background: #f6f6f6; height: 200px;width: 100%;border: 1px solid;">
+          <div class="col-md-12" style="height: 100%;width: 100%;object-fit: contain;"
+               [style.content]="imageForView">
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div style="position: relative;text-align: center;margin-bottom: 15px;">
+            <button class="btn btn-success" style="position: absolute;margin: 5px 0;width: 100%;">
+              <i class="fa fa-camera" aria-hidden="true"></i>
+              Choose / Capture Product Image </button>
+            <input (change)="readFile($event)" type="file" style="opacity: 0;width: 100%;height: 30px;margin-top: 5px;cursor: pointer;">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

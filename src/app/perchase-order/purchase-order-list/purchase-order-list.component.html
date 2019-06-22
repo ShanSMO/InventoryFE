@@ -1,0 +1,235 @@
+<div style="background: #fff;">
+
+  <div style="border-bottom: 1px solid #686868;width: 100%;margin: 0 10px;">
+    <app-com-title-bar [title]="'PURCHASE ORDER HISTORY'"></app-com-title-bar>
+  </div>
+
+  <div style="margin-top: 15px;padding: 5px;">
+
+    <div style="padding: 0 10px;">
+      <app-search [searchOptions]="searchOptions" (searchRequest)="searchPO($event)"></app-search>
+    </div>
+
+    <div style="height: 300px;">
+
+      <div *ngIf="purchaseOrders.length <= 0" class="no-item-div">
+        <p class="no-items">No Records Found</p>
+      </div>
+      <div *ngIf="purchaseOrders.length > 0">
+        <table class="table table-bordered ">
+          <thead>
+          <tr>
+            <th class="text-center">#</th>
+            <th>Order ID</th>
+            <th>Date</th>
+            <th>Supplier</th>
+            <th class="text-center">Items</th>
+            <th class="text-right">Cost</th>
+            <!--<th class="text-center">Action</th>-->
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let purchaseOrder of purchaseOrders; let id = index;">
+            <th class="text-center">
+              {{ ((id + 1 )%10 !== 0) ? currentPage: ''}}{{((id + 1)%10 === 0) ? (10 * (currentPage + 1)) :  id + 1}}
+            </th>
+            <td>{{purchaseOrder.purchaseOrderId}}</td>
+            <td>{{purchaseOrder.createdDate.toString().split('.000+000')[0] | date: 'yyyy-MM-dd hh:mm:ss a'}}</td>
+            <!--<td>{{purchaseOrder.createdDate.toString() | date: 'full'}}</td>-->
+            <td>
+              <div class="row" style="margin: 0;">
+                <div class="col-md-9">
+                  {{purchaseOrder.vendor.firstName}} {{purchaseOrder.vendor.lastName}}
+                </div>
+                <div class="col-md-3" style="color: #009fc0;padding: 0;">
+                  &nbsp;&nbsp;<a href="#" data-toggle="modal" data-target="#customerView" (click)="setSelectedSupplierData(purchaseOrder.vendor)">
+                  <i class="fa fa-eye"></i> View </a>
+                </div>
+              </div>
+            </td>
+            <td class="text-center">
+              {{purchaseOrder.purchaseOrderItems.length}} Item{{purchaseOrder.purchaseOrderItems.length > 1 ? 's': ''}}  &nbsp;&nbsp;
+              <i class="fa fa-eye" style="color: #009fc0;" ></i>
+              <a href="#" data-toggle="modal" data-target="#poItemView" (click)="setItemData(purchaseOrder.purchaseOrderItems)">View</a>
+            </td>
+            <td class="text-right">{{purchaseOrder.totalAmount | currency: 'Rs.'}}</td>
+            <!--<td class="text-center"><i class="fa fa-edit"></i></td>-->
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div>
+      <app-pagination [recordsPerPage]="10"
+                      [recordCount]="totalRecords"
+                      *ngIf="totalRecords > 0"
+                      (goToThePage)="goToPage($event)">
+      </app-pagination>
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+<!---->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="max-width: 780px;">
+    <div class="modal-content" style="width: 100%;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel" style="font-size: 16px;">
+          CREATE NEW CUSTOMER
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="color: #000">
+        <div class="accordion" id="accordionExample">
+          <div class="card">
+            <div class="card-header" id="headingOne">
+              <h5 class="mb-0">
+                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  Collapsible Group Item #1
+                </button>
+              </h5>
+            </div>
+
+            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+              <div class="card-body">
+                Anim pariatur cliche reprehenderit, enim
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" >Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="customerView" tabindex="-1" role="dialog" aria-labelledby="customerViewModalLabel" aria-hidden="true"
+     *ngIf="selectedSupplier !== null">
+  <div class="modal-dialog" role="document" style="max-width: 700px;">
+    <div class="modal-content" style="width: 100%;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="customerViewModalLabel" style="font-size: 16px;">
+          {{selectedSupplier.firstName}}
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="color: #006059;font-size: 13px;
+padding: 30px;">
+
+        <div style="border: 1px solid #0fcea5;
+border-radius: 4px;
+padding: 10px;">
+        <div class="row">
+          <div class="col-md-4"><i class="fa fa-id-card-o"></i> &nbsp; Name</div>
+          <div class="col-md-8">: {{selectedSupplier.firstName}}</div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4"><i class="fa fa-envelope-o"></i> &nbsp; E-mail address</div>
+          <div class="col-md-8">: {{selectedSupplier.emailAddress}}</div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4"><i class="fa fa-id-card-o"></i> &nbsp; Website</div>
+          <div class="col-md-8">: {{selectedSupplier.website}}</div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4"><i class="fa fa-mobile-phone"></i> &nbsp; Phone number</div>
+          <div class="col-md-8">: {{selectedSupplier.phoneNumber}}</div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4"><i class="fa fa-id-card-o"></i> &nbsp; Supplier Code</div>
+          <div class="col-md-8">: {{selectedSupplier.vendorCode}}</div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4"><i class="fa fa-id-card-o"></i> &nbsp; Fax number</div>
+          <div class="col-md-8">: {{selectedSupplier.faxNumber}}</div>
+        </div>
+
+        <div class="row" *ngIf="selectedSupplier.address.city !== null">
+          <div class="col-md-4"><i class="fa fa-map-marker"></i> &nbsp; Address</div>
+          <div class="col-md-8">:
+            <ul>
+              <li>{{selectedSupplier.address.houseNo}}</li>
+              <li>{{selectedSupplier.address.street}}</li>
+              <li>{{selectedSupplier.address.city}}</li>
+              <li>{{selectedSupplier.address.zipCode}}</li>
+            </ul>
+          </div>
+        </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="poItemView" tabindex="-1" role="dialog" aria-labelledby="customerViewModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="max-width: 700px;" *ngIf="selectedSalesItems != null">
+    <div class="modal-content" style="width: 100%;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="salesViewModalLabel" style="font-size: 16px;">
+          Purchased Items
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="color: #006059;font-size: 13px;
+padding: 30px;">
+
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th>#</th>
+            <th>Product</th>
+            <th class="text-right">Purchased price</th>
+            <th class="text-right">Qty</th>
+            <th class="text-right">Discount</th>
+            <th class="text-right">Sub Total</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let item of selectedSalesItems;let id= index;">
+            <th>{{id + 1}}</th>
+            <td>{{item.product.productName}}</td>
+            <td class="text-right" style="padding-right: 10px;">{{item.buyingPrice | currency:' '}}</td>
+            <td class="text-right">{{item.quantity}}</td>
+            <td class="text-right">{{item.discount | currency:' '}}</td>
+            <td class="text-right">{{(item.buyingPrice * item.quantity ) - item.discount | currency:' '}}</td>
+          </tr>
+          </tbody>
+        </table>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

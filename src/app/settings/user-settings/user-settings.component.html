@@ -1,0 +1,111 @@
+<div style="position: relative;">
+  <button type="button" class="fa fa-question-circle-o btn ic-help" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"></button>
+  <div class="row" style="margin: 0;">
+    <div class="col-md-3">
+      <form [formGroup]="userForm">
+        <p class="us-title">Users & Access Settings</p>
+
+        <div style="margin-bottom: 8px;">
+          <p>Display name</p>
+          <input class="input-box" type="text" placeholder="Display name" formControlName="displayName" style="width: 100%;">
+        </div>
+
+        <div style="margin-bottom: 8px;">
+          <p>User name</p>
+          <input class="input-box" type="text" placeholder="User name" formControlName="userName" style="width: 100%;">
+        </div>
+
+        <div style="margin-bottom: 8px;">
+          <p>Password</p>
+          <input class="input-box" type="password" placeholder="Password" formControlName="userPassword" style="width: 100%;">
+        </div>
+
+        <div>
+          <button type="reset" class="btn btn-warning" style="margin-right: 5px;">Clear</button>
+          <button class="btn btn-success" (click)="createUser()" type="button">Create User</button>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-9">
+
+      <div>
+        <p class="us-title">Available Users</p>
+        <div style="padding: 0 10px;">
+          <app-search [searchOptions]="searchOptions"></app-search>
+        </div>
+        <div>
+          <div *ngIf="userList.length <= 0" class="no-item-div">
+            <p class="no-items">No Records Found</p>
+          </div>
+
+          <div *ngIf="userList.length > 0">
+            <div style="height: 250px;">
+              <table class="table table-bordered ">
+                <thead>
+                <tr>
+                  <th style="width: 15%;">User Name</th>
+                  <th style="width: 15%;">Display Name</th>
+                  <th style="width: 15%;">User Role</th>
+                  <th>Privileges</th>
+                  <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let user of userList;let id = index;">
+                    <td>{{user.userName}}</td>
+                    <td>{{user.displayName}}</td>
+                    <td>{{user.displayName}}</td>
+                    <td>
+                      <div>
+                        <ul style="padding: 0;list-style: none;margin: 0;">
+                          <li *ngFor="let privilage of user.privilegeTypes" style="display: inline;">
+                            <p style="color: #f4361b;display: inline;">{{privilage.privilegeName}}</p> | </li>
+                        </ul>
+                      </div>
+                    </td>
+                    <td class="text-center" style="vertical-align: middle;">
+                      <i class="fa fa-remove" style="padding: 5px;" data-target="#userDel" data-toggle="modal"></i>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div>
+              <app-pagination [recordsPerPage]="5"
+                              [recordCount]="totalRecords"
+                              *ngIf="totalRecords > 0"
+                              (goToThePage)="goToPage($event)">
+              </app-pagination>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="modal fade" id="userDel" tabindex="-1" role="dialog"
+     aria-labelledby="customerViewModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="max-width: 400px;">
+    <div class="modal-content" style="width: 100%;">
+      <div class="modal-header">
+        <h5 class="modal-title sup-edit-pop" id="supplierViewModalLabel" style="font-size: 16px;">
+          Delete User
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="color: #000">
+        <div style="width: 100%">
+          <p style="text-align: center;font-size: 15px;">Are you sure you want to delete the selected category ?</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="deleteUser('Y')" >Yes</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deleteUser('N')">No</button>
+      </div>
+    </div>
+  </div>
+</div>

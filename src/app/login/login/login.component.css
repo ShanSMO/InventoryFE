@@ -1,0 +1,62 @@
+body {
+  background: #0ab484; }
+
+input[type=text], input[type=password] {
+  font-size: 14px;
+  border-radius: 2px;
+  border: none; }
+
+input[type=text]:focus, input[type=text]:active, input[type=password]:focus {
+  font-size: 14px;
+  border-radius: 2px;
+  border: none;
+  box-shadow: none; }
+
+.input-group-text {
+  border: none;
+  border-radius: 2px; }
+
+a {
+  font-size: 14px;
+  text-decoration: none; }
+
+a:hover {
+  text-decoration: none !important; }
+
+.btn {
+  font-size: 14px; }
+
+input[type=text], input[type=password] {
+  border-radius: 0px; }
+
+.btn-login {
+  width: 100%;
+  border-radius: 2px;
+  background: #456;
+  border-color: #456; }
+
+.btn-login:focus, .btn-login:active, .btn-login:hover {
+  background: #456 !important;
+  border-color: #456 !important;
+  box-shadow: none !important; }
+
+.txt-sign-in {
+  color: #5f5f5f;
+  font-weight: 100;
+  margin-bottom: 50px;
+  margin-top: 30px; }
+
+.login-form {
+  margin: 50px auto;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 2px; }
+
+.fa-sign-in {
+  color: rgba(87, 87, 87, 0.4); }
+
+.txt-membership {
+  font-size: 14px;
+  margin: 10px 0 0 0; }
+
+/*# sourceMappingURL=login.component.css.map */

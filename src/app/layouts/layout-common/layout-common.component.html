@@ -1,0 +1,122 @@
+<div style="font-size: 12px;
+    padding: 5px;
+    font-weight: 400;
+    background: #c42828;
+    color: #fff;" *ngIf="hasMessage">
+  <strong style="font-weight: 400;">You have a pending payment.Please pay it before 12th of March 2018.Otherwise your account will diactivate</strong>
+</div>
+<div style="padding: 0 15px;">
+    <div class="layout-wrapper row">
+    <!-- Side Navigation -->
+    <app-side-navigation></app-side-navigation>
+
+    <!-- Content Body -->
+    <div class="col-md"  style="padding: 0;">
+      <div class="router-content">
+
+        <div class="row" style="margin: 0;">
+          <div style="width: 25px;">
+            <span (click)="openNavigation()" style="cursor: pointer;"><i class="fa fa-bars"></i></span>
+          </div>
+          <div class="col-md-11 row">
+
+            <!-- Log out Option -->
+            <div class="notif-bg" (click)="logout()">
+              <i class="fa fa-sign-out" aria-hidden="true"  style="font-size: 16px;"></i>
+              <label style="font-size: 12px;">Sign out</label>
+            </div>
+
+            <ul class="nav navbar-top-links navbar-right">
+              <li class="dropdown">
+                <a class="count-info" data-toggle="dropdown" href="#" style="text-decoration: none;color: #212529;">
+                  <div class="notif-bg">
+                    <span class="alert-node" *ngIf="hasUnreadNotifications"></span>
+                    <i class="fa fa-envelope-o" aria-hidden="true" style="font-size: 16px;"></i>
+                    <label style="font-size: 12px;">Messages</label>
+                  </div>
+                </a>
+                <ul class="dropdown-menu dropdown-messages" *ngIf="hasUnreadNotifications">
+                  <li class="divider">
+                    <div class="dropdown-messages-box">
+                      <div class="media-body">
+                        <small class="pull-right">46h ago</small>
+                        <strong style="font-size: 13px;">It is a long established</strong>
+                        <p style="font-size: 12px;margin-bottom: 5px;">It is a long established fact that a reader will be distracted by
+                          the readable content of a page when looking at its layout.</p>
+                        <small class="text-muted">3 days ago at 7:58 pm - 10.06.2014</small>
+                      </div>
+                    </div>
+                  </li>
+                  <li style="font-size: 11px;padding-top: 10px;" >
+                    <div class="text-center link-block">
+                      <a href="mailbox.html" style="text-decoration: none;color: #444;">
+                        <i class="fa fa-envelope-o" style="margin-right: 5px;"></i> <strong>Read All Messages</strong>
+                      </a>
+                    </div>
+                  </li>
+                </ul>
+                <ul class="dropdown-menu dropdown-messages" *ngIf="!hasUnreadNotifications">
+                  <li>
+                    <div class="dropdown-messages-box">
+                      <div class="media-body text-center">
+                        <strong style="font-size: 13px;">No new messages</strong>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a class="count-info" data-toggle="dropdown" href="#" style="text-decoration: none;color: #212529;">
+                  <div class="notif-bg">
+                    <span class="alert-node" *ngIf="hasUnreadMessages"></span>
+                    <i class="fa fa-bell-o" aria-hidden="true" style="font-size: 16px;"></i>
+                    <label style="font-size: 12px;">Notifications</label>
+                  </div>
+                </a>
+                <ul class="dropdown-menu dropdown-messages" *ngIf="hasUnreadMessages">
+                  <li class="divider">
+                    <div class="dropdown-messages-box">
+                      <div class="media-body">
+                        <strong style="font-size: 13px;">It is a long established</strong>
+                      </div>
+                    </div>
+                  </li>
+                  <li style="font-size: 11px;padding-top: 10px;">
+                    <div class="text-center link-block">
+                      <a href="mailbox.html" style="text-decoration: none;color: #444;">
+                        <i class="fa fa-bell-o" style="margin-right: 5px;"></i> <strong>See All Notifications</strong>
+                      </a>
+                    </div>
+                  </li>
+                </ul>
+
+                <ul class="dropdown-menu dropdown-messages" *ngIf="!hasUnreadMessages">
+                  <li>
+                    <div class="dropdown-messages-box">
+                      <div class="media-body text-center">
+                        <strong style="font-size: 13px;">No new notifications</strong>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+
+          </div>
+          <div class="col-md text-right" style="padding: 0;z-index: 1000;">
+            <p>
+              <label class="date-div current-time">{{time | date:'yyyy-MM-dd  hh:mm:ss a'}}</label>
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      <!--  Router Outlet -->
+      <div class="router-outlet">
+      <router-outlet></router-outlet>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,73 @@
+<div>
+
+  <div class="row" style="margin: 0;">
+    <div class="col-md-5">
+      <p class="tos-title">Terms and Conditions</p>
+      <div class="form-group">
+        <textarea class="input-box" type="text" style="width: 100%;" [(ngModel)]="tos"></textarea>
+        <button class="btn btn-success" (click)="addTos()">Add</button>
+      </div>
+
+      <div>
+        <table class="table table-bordered">
+          <tbody>
+          <tr *ngFor="let tos of termsAndConditions">
+            <td style="width: 10%;vertical-align: middle;" class="text-center">
+              <i class="fa fa-circle" style="font-size: 8px;color: #0b6d9b;"></i>
+            </td>
+            <td style="width: 80%;">{{tos.tos}}</td>
+            <td style="width: 10%;vertical-align: middle;" class="text-center">
+              <i class="fa fa-close" (click)="remove(tos)"></i>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="col-md-7">
+      <p class="tos-title">Company Profile</p>
+      <div class="row" style="margin: 0;">
+
+        <div class="update-success animated bounceIn" *ngIf="showMessage">
+          <p>Successfully Updated</p>
+        </div>
+
+        <div class="col-md-4" style="padding: 0;">
+          <label style="margin: 0;">Company logo</label><br>
+          <div  style="border: 2px dashed #9f9f9f;padding: 15px;">
+            <div style="height: 175px;background: #eaeaea;width: 175px;" [style.content]="imageForView">
+            </div>
+            <input type="file" style="text-overflow: ellipsis;overflow: hidden;white-space: nowrap;width: 164px;" (change)="readFile($event)">
+          </div>
+        </div>
+
+
+        <div class="col-md-8">
+          <form [formGroup]="companyForm">
+            <div class="form-group">
+              <label style="margin: 0;">Company Name</label><br>
+              <input type="text" class="input-box" placeholder="Company name" style="width: 100%;" formControlName="companyName">
+            </div>
+
+            <div class="form-group">
+              <label style="margin: 0;">Owner Name</label><br>
+              <input type="text" class="input-box" placeholder="Owner name" style="width: 100%;" formControlName="owner">
+            </div>
+
+            <div class="form-group">
+              <label style="margin: 0;">Contact Number</label><br>
+              <input type="text" class="input-box" placeholder="Contact number" style="width: 100%;" formControlName="contactNumber">
+            </div>
+          </form>
+        </div>
+      </div>
+
+
+      <div style="margin-top: 5px;text-align: right;">
+        <button class="btn btn-success" type="button" (click)="updateData()" [disabled]="companyForm.invalid">Update Company Data</button>
+      </div>
+
+    </div>
+  </div>
+</div>

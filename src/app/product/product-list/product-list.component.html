@@ -1,0 +1,122 @@
+<div class="content">
+  <div style="border-bottom: 1px solid #686868;width: 100%;margin: 0 10px;">
+    <app-com-title-bar [title]="'PRODUCT LIST'"></app-com-title-bar>
+  </div>
+
+
+  <div class="cus-list-margin">
+
+    <!-- Information Message -->
+    <div [class]="actionMessage.type === 'SUCCESS' ? 'msg-abs success-bg animated bounceIn' : actionMessage.type === 'ERROR' ? 'msg-abs error-bg animated bounceIn' : 'msg-abs info-bg animated bounceIn'" *ngIf="actionMessage.hasMessage">
+      <p [class]="actionMessage.type === 'SUCCESS' ? 'success-text text-left' : actionMessage.type === 'ERROR' ? 'error-text text-left' : 'info-text text-left'">
+        {{actionMessage.message}}
+      </p>
+    </div>
+
+    <div style="padding: 0 10px;">
+      <app-search *ngIf="searchOptions.length > 0" [searchOptions]="searchOptions" (searchRequest)="searchProduct($event)"></app-search>
+    </div>
+
+    <div style="height: 300px;">
+
+      <div *ngIf="productList.length <= 0" class="no-item-div">
+        <p class="no-items">No Records Found</p>
+      </div>
+      <div *ngIf="productList.length > 0">
+        <table class="table table-bordered ">
+          <thead>
+          <tr>
+            <th scope="col" class="text-center">#</th>
+            <th scope="col" class="text-center">Product code</th>
+            <th scope="col" class="text-center">Barcode</th>
+            <th scope="col" class="p-l-15 text-left">Product name</th>
+            <th scope="col" class="p-l-15 text-left">Brand</th>
+            <th scope="col" class="p-l-15 text-left">Product Category</th>
+            <th scope="col" class="p-l-15 text-left">Description</th>
+            <th scope="col" class="p-l-15 text-left">Status</th>
+            <th scope="col"></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let product of productList;let id = index;" style="cursor: pointer">
+            <th class="text-center">
+              {{ ((id + 1 )%10 !== 0) ? currentPage: ''}}{{((id + 1)%10 === 0) ? (10 * (currentPage + 1)) :  id + 1}}
+            </th>
+            <td>{{product.productCode}}</td>
+            <td>{{product.barcode}}</td>
+            <td>{{product.productName}}</td>
+            <td>{{product.brand != null  ? product.brand.brandName : 'N/A'}}</td>
+            <td>{{product.category != null ? product.category.categoryName : 'N/A'}}</td>
+            <td>{{product.description}}</td>
+            <td>{{product.status}}</td>
+            <td class="text-center" >
+              <i class="fa fa-remove" (click)="selectForDelete(product.id)" data-toggle="modal" data-target="#prodDel"></i> &nbsp;
+              <i class="fa fa-edit" (click)="setSelectedProduct(product)" data-toggle="modal" data-target="#productEditView"></i> &nbsp;
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div>
+      <app-pagination [recordsPerPage]="10"
+                      [recordCount]="totalRecords"
+                      *ngIf="totalRecords > 0"
+                      (goToThePage)="goToPage($event)">
+      </app-pagination>
+    </div>
+
+  </div>
+</div>
+
+
+
+
+<div class="modal fade" id="productEditView" tabindex="-1" role="dialog"
+     aria-labelledby="customerViewModalLabel" aria-hidden="true" *ngIf="selectedProduct !== null">
+  <div class="modal-dialog" role="document" style="max-width: 750px;">
+    <div class="modal-content" style="width: 100%;">
+      <div class="modal-header">
+        <h5 class="modal-title sup-edit-pop" id="customerViewModalLabel" style="font-size: 16px;">
+          {{selectedProduct.productName}} <br>
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closePopUp(searchRequest)">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="color: #000">
+        <app-common-product-form [productData]="selectedProduct" [activeStatus]="activeStatus"
+                                 (updateProductEmit)="closePopUp($event)"></app-common-product-form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="closePopUp(searchRequest)">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="prodDel" tabindex="-1" role="dialog"
+     aria-labelledby="customerViewModalLabel" aria-hidden="true" *ngIf="selectedDelProduct != null">
+  <div class="modal-dialog" role="document" style="max-width: 400px;">
+    <div class="modal-content" style="width: 100%;">
+      <div class="modal-header">
+        <h5 class="modal-title sup-edit-pop" id="supplierViewModalLabel" style="font-size: 16px;">
+          Delete Customer
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="color: #000">
+        <div style="width: 100%">
+          <p style="text-align: center;font-size: 15px;">Are you sure you want to delete the selected category ?</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="deleteProduct('Y')" >Yes</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deleteProduct('N')">No</button>
+      </div>
+    </div>
+  </div>
+</div>

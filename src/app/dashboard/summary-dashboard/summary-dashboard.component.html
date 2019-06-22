@@ -1,0 +1,174 @@
+<div class="content-bg">
+  <div class="row" style="width: 100%;background: #e9e9e9;padding: 5px;margin: 5px 0;" >
+    <div class="col-md-2 dash-product" >
+      <a routerLink="/product-list" class="dash-itm">
+        <h2 style="font-size: 30px;color: #666;border-bottom: 1px solid #4865923b;">{{statData.productCount}}</h2>
+        <h4 style="font-size: 16px;color: #6c6c6c;">Products</h4>
+      </a>
+    </div>
+
+    <div class="col-md-2 dash-product" >
+      <a routerLink="/customer-list" class="dash-itm">
+        <h2 style="font-size: 30px;color: #666;border-bottom: 1px solid #4865923b;">{{statData.customerCount}}</h2>
+        <h4 style="font-size: 16px;color: #6c6c6c;">Customers</h4>
+      </a>
+    </div>
+
+    <div class="col-md-2 dash-product">
+      <a routerLink="/supplier-list"  class="dash-itm">
+        <h2 style="font-size: 30px;color: #666;border-bottom: 1px solid #4865923b;">{{statData.supplierCount}}</h2>
+        <h4 style="font-size: 16px;color: #6c6c6c;">Suppliers</h4>
+      </a>
+    </div>
+
+    <div class="col-md-2 dash-product">
+      <a routerLink="/sales-history"  class="dash-itm">
+        <h2 style="font-size: 30px;color: #666;border-bottom: 1px solid #4865923b;">{{statData.salesCount}}</h2>
+        <h4 style="font-size: 16px;color: #6c6c6c;">Sales</h4>
+      </a>
+    </div>
+
+    <!--<div class="col-md-2" style="text-align: center;background: #fff;padding: 15px;border-radius: 3px;margin: 0 4px;">-->
+      <!--<a routerLink="/sales-history">-->
+        <!--<h2 style="font-size: 30px;color: #666;">{{statData.salesCount}}</h2>-->
+        <!--<h4 style="font-size: 16px;color: #6c6c6c;">Categories</h4>-->
+      <!--</a>-->
+    <!--</div>-->
+
+
+  </div>
+
+
+  <div class="row" style="margin: 0;">
+
+    <div class="col-md-7" *ngIf="barChartData.length > 0">
+      <canvas baseChart style="border: 1px solid #16ccea;border-radius: 3px;"
+              [datasets]="barChartData"
+              [labels]="pieChartLabels"
+              [chartType]="chartType"
+              [options]="pieChartOptions"
+              [colors]="colors">
+      </canvas>
+
+    </div>
+    <div class="col-md-5">
+      <div style="padding: 15px;
+border: 1px solid #16ccea;
+border-radius: 3px;">
+
+        <div>
+          <h6 style="font-weight: 600;padding-bottom: 5px;border-bottom: 1px solid rgba(25, 26, 62, 0.25);
+color: #444;">Sales Progress</h6>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4">
+            <label>Chart Type</label>
+          </div>
+          <div class="col-md-8">
+            <select [(ngModel)]="chartType" (change)="changeChartType()" class="col-md-12">
+              <option value="bar">Bar Chart</option>
+              <option value="line">Line Chart</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4">
+            <label>Product Type</label>
+          </div>
+          <div class="col-md-8">
+            <select [(ngModel)]="product" (change)="changeProductType()" class="col-md-12">
+              <option value="null">All</option>
+              <option value="mouse">Mouse</option>
+              <option value="keyboard">Keyboard</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4">
+            <label>Request Period</label>
+          </div>
+          <div class="col-md-8">
+            <select [(ngModel)]="durationType" class="col-md-12">
+              <option value="DAILY">Daily</option>
+              <option value="WEEKLY">Weekly</option>
+              <option value="MONTHLY">Monthly</option>
+              <option value="YEARLY">Yearly</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="margin-top: 10px;">
+
+          <div class="row" *ngIf="durationType == 'MONTHLY'" style="margin: 0">
+            <div class="col-md-6 p-0 p-r-5">
+              <select class="full-width">
+                <option *ngFor="let month of monthList" [value]="month.key">{{month.value}}</option>
+              </select>
+            </div>
+            <div class="col-md-6 p-0 p-l-5">
+              <select class="full-width">
+                <option *ngFor="let month of monthList" [value]="month.key">{{month.value}}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row" *ngIf="durationType == 'YEARLY'" style="margin: 0">
+            <div class="col-md-6 p-0 p-r-5">
+              <select class="full-width">
+                <option *ngFor="let year of yearsList" [value]="year.key">{{year.value}}</option>
+              </select>
+            </div>
+            <div class="col-md-6 p-0 p-l-5">
+              <select class="full-width">
+                <option *ngFor="let year of yearsList" [value]="year.key">{{year.value}}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row" *ngIf="durationType == 'DAILY'" style="margin: 0">
+
+            <div class="col-md-6 p-0 p-r-5">
+              <ejs-datepicker
+                [allowEdit]="false"  [showClearButton]="true"
+                (close)="search()" class="full-width" [(ngModel)]="endDate">
+              </ejs-datepicker>
+            </div>
+
+            <div class="col-md-6 p-0 p-l-5">
+              <ejs-datepicker
+                [allowEdit]="false"  [showClearButton]="true"
+                (close)="search()" class="full-width" [(ngModel)]="startDate">
+              </ejs-datepicker>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding: 15px;
+border: 1px solid #16ccea;
+border-radius: 3px;margin-top:5px;">
+        <h6 style="font-weight: 600;border-bottom: 1px solid rgba(25, 26, 62, 0.25);padding-bottom: 5px;
+color: #444;">Recent  Activities <small >(10 Most recent activities)</small></h6>
+
+
+        <div >
+          <ul style="    max-height: 200px;
+    overflow-y: auto;">
+            <li class="recent-item" *ngFor="let recentAct of recentActivities">{{recentAct.activityName}}</li>
+          </ul>
+        </div>
+
+
+      </div>
+
+    </div>
+  </div>
+
+
+
+
+
+</div>

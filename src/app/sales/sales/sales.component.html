@@ -1,0 +1,309 @@
+<div class="content" >
+
+  <div class="title-div">
+    <app-com-title-bar [title]="'NEW SALE'"></app-com-title-bar>
+  </div>
+
+  <div style="margin-top: 20px;">
+    <form [formGroup]="orderItemForm">
+      <div class="row" style="margin-left: 0;">
+        <div class="col-md-4 customer-d-div">
+          <div class="row " >
+            <div class="col-md-4">
+              <label>Customer</label>
+            </div>
+            <div class="col-md-8">
+              <select class="form-control" [(ngModel)]="customerSel" [ngModelOptions]="{standalone: true}"
+                      tabindex="1" [disabled]="orderItems.length > 0">
+                <option *ngFor="let customer of customers" [value]="customer.id">{{customer.firstName}} {{customer.lastName}}</option>
+              </select>
+            </div>
+          </div>
+
+          <a href="#" data-toggle="modal" data-target="#exampleModal" style="font-size: 12px;float: right;"
+             [style.display]="orderItems.length > 0 ? 'none': 'block'">
+            New customer ?
+          </a>
+          <div class="clearfix"></div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <label>Barcode</label>
+            </div>
+            <div class="col-md-8">
+              <input id="barcodeInput" type="text" class="input-box col-md-12" tabindex="2" [(ngModel)]="barcode"
+                     [ngModelOptions]="{standalone: true}" (keyup)="loadByBarcode()">
+            </div>
+          </div>
+
+          <div class="alert-d" *ngIf="qty > currentStock">
+              Sttock Empty
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <label>Category</label>
+            </div>
+            <div class="col-md-8">
+              <select class="form-control" [(ngModel)]="selectedCategory"
+                      (change)="loadAllProductsByCategory($event)" [ngModelOptions]="{standalone: true}" tabindex="3">
+                <option *ngFor="let category of categories" [value]="category.id">{{category.categoryName}}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4 ">
+              <label>Product</label>
+            </div>
+            <div class="col-md-8" >
+              <select class="form-control" [formControlName]="'product'" [(ngModel)]="selectedProduct" tabindex="4"
+                      (change)="loadByProduct(selectedProduct)">
+                <option *ngFor="let product of productList" [ngValue]="product.id">{{product.productName}}</option>
+              </select>
+            </div>
+          </div>
+
+          <div *ngIf="qty > currentStock" class="alert-d">
+            Current stock is {{currentStock}}
+          </div>
+          <div class="row">
+            <div class="col-md-4 ">
+              <label>Quantity</label>
+            </div>
+            <div class="col-md-8">
+
+              <input type="text" [placeholder]="isAvailable == true ? 'Quantity' : 'Not Available'"
+                     class="input-box col-md-12" formControlName="quantity"
+                     [(ngModel)]="qty" tabindex="5" [readOnly]="!isAvailable">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4 ">
+              <label>Unit Price ( {{currency.currency.symbol}} )</label>
+            </div>
+            <div class="col-md-8">
+              <input type="text" placeholder="Unit Price" class="input-box col-md-12"
+                     formControlName="sellingPrice" [(ngModel)]="unitPrice" tabindex="6">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4 ">
+              <label>Discount (%)</label>
+            </div>
+            <div class="col-md-8">
+              <input type="text" placeholder="Discount" class="input-box col-md-12" formControlName="discount"
+                     [(ngModel)]="discount" tabindex="7">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4 ">
+              <label>Total (Rs.)</label>
+            </div>
+            <div class="col-md-8">
+              <input type="text" placeholder="Discount" class="input-box col-md-12" formControlName="subTotal"
+                     [value]="(qty * unitPrice) - discount" tabindex="8">
+            </div>
+          </div>
+
+          <div style="text-align: right;margin-top: 5px;margin-bottom: 10px;">
+            <button type="reset" class="btn btn-warning" style="margin-right: 5px;">Clear</button>
+            <button class="btn btn-success" type="button" (click)="addItemToList()" tabindex="9"
+                    [disabled]="orderItemForm.invalid || customerSel == null">Add item</button>
+          </div>
+        </div>
+
+
+        <div class="col-md-8 order-div">
+          <div class="row" style="border: 1px solid #dadada;margin: 0;">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+              <div style="width: 100%;height: 100px;margin-bottom:5px;text-align: center;">
+                <h4 style="color: #00444b;margin: 15px 0 0 0;font-weight: 600;">SUB TOTAL </h4>
+                <h2 STYLE="color: #07888d;font-size: 25px;">{{ totalAmount | currency: 'Rs. '}}</h2>
+              </div>
+            </div>
+            <div class="col-md-3" style="padding: 5px 0;">
+              <div style="font-size: 12px;color: #727272;">
+                <div class="row">
+                  <div class="col-md-3">#Order</div>
+                  <div class="col-md-9">: PO-000215</div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-3">Date</div>
+                  <div class="col-md-9">: {{ sellingDate | date: 'yyyy/MM/dd hh:mm:ss A'}}</div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-3">Cachier</div>
+                  <div class="col-md-9">: User 2</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="orderItems.length > 0">
+            <table class="table table-bordered ">
+              <thead>
+              <tr>
+                <th scope="col" class="text-center">#</th>
+                <th scope="col" class="text-center">Item</th>
+                <th scope="col" class="text-center">Quantity</th>
+                <th scope="col" class="text-center">Unit price ( {{currency.currency.symbol}} )</th>
+                <th scope="col" class="text-center">Discount ( {{currency.currency.symbol}} )</th>
+                <th scope="col" class="text-center">Sub Total ( {{currency.currency.symbol}} )</th>
+                <th scope="col"></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let orderItem of orderItems;let id = index;">
+                <th scope="row" class="text-center">{{id + 1}}</th>
+                <td class="p-l-15">{{orderItem.product.productName}}</td>
+                <td class="text-center">{{orderItem.quantity}}</td>
+                <td class="text-right p-r-15">{{orderItem.sellingPrice| currency: ' '}}</td>
+                <td class="text-right p-r-15">{{orderItem.discount| currency: ' '}}</td>
+                <td class="text-right p-r-15">{{orderItem.subTotal| currency: ' '}}</td>
+                <td class="text-center">
+                  <i class="fa fa-remove" (click)="removeItemFromList(orderItem)"></i> &nbsp;
+                </td>
+              </tr>
+
+              </tbody>
+            </table>
+
+            <div  style="width: 100%;margin-left: 0;">
+              <div class="row" style="height: 30px;border-top: 1px solid #d5d5d5;padding-top: 10px;">
+                <div class="col-md-7"></div>
+                <div class="col-md-5 row">
+                  <div class="col-md-6">
+                    <h6 class="sub-tot text-left" style="font-size: 13px;
+  font-weight: 600;
+  color: #626262;">Total ( Rs. )</h6>
+                  </div>
+                  <div class="col-md-6">
+                    <h6 class="sub-tot text-right" style="font-size: 13px;
+  font-weight: 600;
+  color: #626262;">{{totalAmount| currency:' '}}</h6>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row" style="margin-top: 10px;">
+                <div class="col-md-7"></div>
+                <div class="col-md-5 row">
+                  <div class="col-md-6">
+                    <h6 class="sub-tot  text-left" style="font-size: 13px;
+  font-weight: 600;
+  color: #626262;">Paid ( Rs. )</h6>
+                  </div>
+                  <div class="col-md-6">
+                    <input type="text" class="form-control input-box text-right" [ngModelOptions]="{standalone: true}" placeholder="Paid amount" [(ngModel)]="paidAmount">
+                  </div>
+                </div>
+              </div>
+
+              <div class="row" style="margin-top: 10px;">
+                <div class="col-md-7"></div>
+                <div class="col-md-5 row">
+                  <div class="col-md-6">
+                    <h6 class="sub-tot  text-left" style="font-size: 13px;
+  font-weight: 600;
+  color: #626262;">Balance ( Rs. )</h6>
+                  </div>
+                  <div class="col-md-6 text-right">
+                    <p style="font-size: 14px;"> {{ ((paidAmount - totalAmount) > 0 ? (paidAmount - totalAmount) : 0) | currency:' '}}  </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div style="background: #fff" *ngIf="orderItems.length > 0">
+    <div style="padding: 15px;">
+      <!-- Rmarks and payment-->
+      <div>
+        <div style="margin: 15px 0;text-align: right;padding: 15px;">
+          <button class="btn btn-success" (click)="createUpdateSales()">Finish & Print</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="max-width: 780px;">
+    <div class="modal-content" style="width: 100%;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel" style="font-size: 16px;">
+          CREATE NEW CUSTOMER
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-common-customer-form [customerData]="null" (createCustomerEmit)="getResponse($event)" ></app-common-customer-form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="loadCustomerList()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="priceList" role="dialog" tabindex="-1"
+     aria-hidden="true" data-backdrop="true">
+  <div class="modal-dialog" role="document" style="max-width: 450px;">
+    <div class="modal-content" style="width: 100%;height: 300px;">
+      <div class="modal-header">
+        <h5 style="color: #1b4477e6;
+    font-weight: 700;">Stock related price list</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="color: #000">
+        <div>
+          <table class="table table-bordered priceList">
+            <thead>
+            <tr>
+              <th class="text-center">#</th>
+              <th class="text-center">Modal</th>
+              <th class="text-center">Price</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let stockItem of stockList; let id = index;" (click)="setPrice(stockItem)">
+              <th class="text-center">{{id + 1}}</th>
+              <td>{{stockItem.product.productModel == null ? 'N/A' : stockItem.product.productModel}}</td>
+              <td class="text-right">{{stockItem.sellingPrice | currency: 'Rs.'}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+
+<router-outlet>
+  <app-sales-receipt *ngIf="printable"
+                     [salesItems]="orderItems"
+                     [totalAmount]="totalAmount"
+                     [totalDiscount]="totalDiscount">
+
+  </app-sales-receipt>
+</router-outlet>

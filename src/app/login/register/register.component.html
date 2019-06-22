@@ -1,0 +1,74 @@
+<img src="../../../assets/images/bg.jpg" style="    position: fixed;
+    width: 100%;opacity: 0.8;"/>
+<div class="container-fluid">
+
+  <!-- Success Message -->
+  <div class="msg-abs success-bg animated bounceIn" style="margin: 15px;width: auto;" *ngIf="hasMessage">
+    <p class="success-text text-left">
+      Customer has been successfully created
+    </p>
+  </div>
+
+  <div class="row">
+    <div class="col-md-8" style="    padding: 100px 30px;
+    color: #fff;">
+      <h1> E-biz Inventory Management System </h1>
+      <p class="tips" style="margin-left: 25px;"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> &nbsp; Manage your Inventory easily</p>
+      <p class="tips" style="margin-left: 65px;"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Manage your Daily Income and Expenses</p>
+      <p class="tips"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Easy to handle interfaces</p>
+    </div>
+
+    <div class="col-md-4 login-form" style="background: rgba(255,255,255,0.9);">
+
+      <!-- Form Title-->
+      <div class="text-center" style="font-size: 20px;">
+        <h3 style="font-size: 20px;
+    color: #6d6d6d;
+    padding-bottom: 7px;
+    border-bottom: 1px solid #cecece;">Register as a new company</h3>
+      </div>
+
+      <form [formGroup]="registrationForm">
+        <div style="width: 420px;margin: 0 auto;padding: 20px;border-radius: 7px;">
+
+          <fieldset class="field-set-color">
+            <legend style="color: #444">Company/Organization Name *</legend>
+            <input type="text" class="form-control login-input lgn-inp" placeholder="Company/Organization name" formControlName="companyName">
+          </fieldset>
+
+          <fieldset class="field-set-color">
+            <legend style="color: #444">Contact Person Name *</legend>
+            <input type="text" class="form-control login-input lgn-inp" placeholder="Contact person name" formControlName="owner">
+          </fieldset>
+
+          <fieldset class="field-set-color">
+            <legend style="color: #444">Contact Number *</legend>
+            <input type="text" class="form-control login-input lgn-inp" placeholder="Contact Number" formControlName="contactNumber">
+          </fieldset>
+
+          <fieldset class="field-set-color">
+            <legend style="color: #444">User Name *</legend>
+            <input type="text" class="form-control login-input lgn-inp" placeholder="User name" formControlName="userName">
+          </fieldset>
+
+          <fieldset class="field-set-color">
+            <legend style="color: #444">Password *</legend>
+            <input type="password" class="form-control login-input lgn-inp" placeholder="Password" formControlName="userPassword">
+          </fieldset>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md">
+                <button class="btn btn-success btn-login" (click)="goBack()">Back to Login</button>
+              </div>
+              <div class="col-md">
+                <button class="btn btn-success btn-login" (click)="createAccount()" [disabled]="registrationForm.invalid">Create account</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>

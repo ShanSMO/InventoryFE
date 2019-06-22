@@ -1,0 +1,118 @@
+.date-div {
+  background: rgb(13, 117, 140);
+  border-radius: 3px;
+  padding: 3px 20px 3px 20px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.alert-node {
+  background: #ec129d;
+  width: 10px;
+  height: 10px;
+  position: absolute !important;
+  border-radius: 50px;
+  left: 5px;
+  top: 2px;
+}
+
+.notif-bg {
+  width: 100px;
+  position: relative;
+  text-align: center;
+  cursor: pointer;
+}
+
+.notif {
+  width: 300px;
+  height: 250px;
+  background: #f3f0f0;
+  position: absolute;
+  top: 35px;
+  border: 1px solid #bfbdbd;
+  border-radius: 5px;
+  display: none;
+}
+
+.notification-box {
+  width: 300px;
+  display: none;
+}
+
+.notification-box2 {
+  left: 120px;
+}
+
+.notif-msg {
+  height: 50px;
+  border-bottom: 1px solid #d7d4d4;
+  font-size: 13px;
+  padding: 5px 5px;
+}
+
+.message-title {
+  font-size: 13px;
+  background: #444;
+  border-radius: 4px 4px 0 0;
+  color: #fff;
+  text-align: center;
+  padding: 7px 0 0 0;
+}
+
+.dropdown-menu {
+  max-width: 310px;
+  width: 310px;
+  padding: 10px;
+  box-shadow: 0 0 2px rgba(86, 96, 117, 0.7);
+}
+
+small {
+  font-size: 10px;
+}
+
+
+.divider {
+  border-bottom: 1px solid #ccc;
+}
+
+.media-body {
+  padding: 5px 0;
+}
+
+.router-content {
+  background: #f2f1f0;
+  width: 100%;
+  height: 40px;
+  border-bottom: 1px solid #bababa;
+  padding: 8px;
+  position: fixed !important;
+  z-index: 100 !important;
+}
+
+.router-outlet {
+  margin-top: 40px !important;
+  height: 100vh !important;
+  padding-bottom: 50px !important;
+  overflow-y: auto !important;
+}
+
+.current-time {
+  position: fixed !important;
+  right: 5px !important;
+  top: 5px !important;
+  font-size: 15px !important;
+}
+
+.info-bg {
+  background: #11a963
+}
+.warn-bg {
+  background: #000
+}
+
+.error-bg {
+  background: #e7ac05
+}
+
+/*# sourceMappingURL=layout-common.component.css.map */

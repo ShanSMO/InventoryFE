@@ -1,0 +1,154 @@
+<div class="content-bg" >
+  <div style="border-bottom: 1px solid #686868;width: 100%;margin: 0 10px;">
+    <app-com-title-bar [title]="'SUB CATEGORIES'"></app-com-title-bar>
+  </div>
+
+    <div class="row" style="margin-left: 0;margin-top: 20px;margin-right: 0;background: #fff;padding: 5px;">
+
+      <!-- Information Message -->
+      <div [class]="actionMessage.type === 'SUCCESS' ? 'msg-abs success-bg animated bounceIn ' : actionMessage.type === 'ERROR' ? 'msg-abs error-bg animated bounceIn ' : 'msg-abs info-bg animated bounceIn '" *ngIf="actionMessage.hasMessage">
+        <p [class]="actionMessage.type === 'SUCCESS' ? 'success-text text-left' : actionMessage.type === 'ERROR' ? 'error-text text-left' : 'info-text text-left'">
+          {{actionMessage.message}}
+        </p>
+      </div>
+
+      <div class="col-md-4 customer-d-div">
+        <form [formGroup]="categoryForm">
+        <div class="alert-d">
+          Note: Once you create a sub category , you cannot change the name
+        </div>
+
+          <div class="row ">
+            <div class="col-md-3">
+              <label>Category</label>
+            </div>
+            <div class="col-md-9">
+              <select class="input-box" style="width: 100%;" [formControlName]="'category'">
+                <option *ngFor="let category of categories" [ngValue]="category">{{category.categoryName}}</option>
+              </select>
+            </div>
+          </div>
+
+
+        <div class="row ">
+          <div class="col-md-3">
+            <label>S.Category</label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" placeholder="Category name" class="input-box col-md-12"
+                   formControlName="categoryName" tabindex="1" [(ngModel)]="description">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <label>Description</label>
+          </div>
+          <div class="col-md-9">
+            <textarea class="form-control" formControlName="description" tabindex="2" [value]="description"></textarea>
+          </div>
+        </div>
+
+        <div class="row" style="position: relative;margin: 5px 0">
+          <div style="background: #f6f6f6; height: 200px;width: 100%;border: 1px solid;">
+            <div class="col-md-12" style="height: 100%;width: 100%;object-fit: contain;"
+                 [style.content]="imageForView">
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <div style="position: relative;text-align: center;margin-bottom: 15px;">
+              <button class="btn btn-success" style="position: absolute;margin: 5px 0;width: 100%;">
+                <i class="fa fa-camera" aria-hidden="true"></i>
+                Choose / Capture Product Image </button>
+              <input (change)="readFile($event)" type="file" style="opacity: 0;width: 100%;height: 30px;margin-top: 5px;cursor: pointer;">
+            </div>
+          </div>
+        </div>
+
+        <div class="row" style="float: right;margin: 0;" >
+          <button type="reset" class="btn btn-warning" style="margin-right: 5px;">Clear</button>
+          <button class="btn btn-success" (click)="createOrUpdate()" type="button" tabindex="3"
+                  [disabled]="categoryForm.invalid || imageFile == null">Save Category</button>
+        </div>
+        </form>
+      </div>
+
+
+      <div class="col-md-8 customer-d-div">
+        <div>
+          <h5 style="font-size: 15px;font-weight: 600;color: #8a8a8a;">SUB CATEGORY LIST</h5>
+        </div>
+
+        <div style="padding: 0 10px;">
+          <app-search [searchOptions]="searchOptions" (searchRequest)="searchCategory($event)"></app-search>
+        </div>
+
+        <div *ngIf="categories.length <= 0" class="no-item-div">
+          <p class="no-items">No Records Found</p>
+        </div>
+        <div *ngIf="categories.length > 0">
+          <table class="table table-bordered ">
+            <thead>
+            <tr>
+              <th scope="col" class="text-center">#</th>
+              <th scope="col" class="text-left">Code</th>
+              <th scope="col" class="p-l-15 text-left">Category name</th>
+              <th scope="col" class="p-l-15 text-left">Parent category</th>
+              <th scope="col" class="p-l-15 text-left">Description</th>
+              <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let category of subCategories;let id = index;" style="cursor: pointer">
+              <th class="text-center">
+                {{ ((id + 1 )%10 !== 0) ? currentPage: ''}}{{((id + 1)%10 === 0) ? (10 * (currentPage + 1)) :  id + 1}}
+              </th>
+              <td class="text-left">{{category.categoryCode}}</td>
+              <td>{{category.categoryName}}</td>
+              <td>{{category.category.categoryName}}</td>
+              <td>{{category.description}}</td>
+              <td class="text-center" (click)="selectFroDelete(category.id)" data-toggle="modal" data-target="#catDel">
+                <i class="fa fa-remove"></i> &nbsp;
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <app-pagination [recordsPerPage]="10"
+                          [recordCount]="totalRecords"
+                          *ngIf="totalRecords > 0"
+                          (goToThePage)="goToPage($event)">
+          </app-pagination>
+        </div>
+      </div>
+    </div>
+
+</div>
+
+
+<div class="modal fade" id="catDel" tabindex="-1" role="dialog"
+     aria-labelledby="customerViewModalLabel" aria-hidden="true" *ngIf="selectedCategory != null">
+  <div class="modal-dialog" role="document" style="max-width: 400px;">
+    <div class="modal-content" style="width: 100%;">
+      <div class="modal-header">
+        <h5 class="modal-title sup-edit-pop" id="customerViewModalLabel" style="font-size: 16px;">
+          Delete Category
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="color: #000">
+        <div style="width: 100%">
+          <p style="text-align: center;font-size: 15px;">Are you sure you want to delete the selected category ?</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="removeCategory('Y')" >Yes</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="removeCategory('N')">No</button>
+      </div>
+    </div>
+  </div>
+</div>

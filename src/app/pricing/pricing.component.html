@@ -1,0 +1,43 @@
+<div class="content" style="padding: 15px;">
+
+  <div>
+
+    <div class="text-center">
+      <div *ngFor="let group of pricingGroups"  class="col-md price-cont-box">
+          <div style="height: 100px;background: #b3adab;width: 100%;position:relative;">
+            <div style="text-align: center;padding-top: 10px;color: #fff;">
+              <h3 style="font-weight: 600;font-size: 25px;">{{group.groupName}}</h3>
+            </div>
+
+            <label class="price-ball">
+              {{group.currency}}<br>
+              {{group.price | currency : ' '}}
+              <p style="font-size: 12px;font-weight: 400;"> monthly </p>
+            </label>
+
+            <div style="position: absolute;top: 180px;padding: 15px;">
+              <p style="font-size: 15px;font-weight: 100;text-align: center;color: #474747;">
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                Lorem Ipsum has been the industry's
+              </p>
+
+              <ul style="font-size: 13px;list-style: none;text-align: left;padding: 0 0 0 50px;">
+                <li><i class="fa fa-check"></i> &nbsp;<strong>20</strong> Customers</li>
+                <li><i class="fa fa-check"></i> &nbsp;<strong>10</strong> Staffs</li>
+                <li><i class="fa fa-check"></i> &nbsp;<strong>3</strong> Months Free Trial</li>
+                <li><i class="fa fa-check"></i> &nbsp;<strong>1 Year</strong> subscription</li>
+                <li><i class="fa fa-check"></i> &nbsp;<strong>500</strong> SMSs per month</li>
+              </ul>
+            </div>
+
+        </div>
+
+        <div style="padding: 0 15px;">
+          <button class="btn btn-warning btn-select">Start Free Trial</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>

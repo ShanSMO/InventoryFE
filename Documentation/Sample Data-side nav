@@ -1,0 +1,117 @@
+<ul class="side-nav-item">
+    <li class="nav-item" routerLink="/dashboard-summary">
+      <i class="fa fa-home"></i> &nbsp; <label class="menu-item-lbl">Dashboard</label>
+    </li>
+    <li class="nav-item" routerLink="/supplier-list">
+      <i class="fa fa-home"></i> &nbsp; <label class="menu-item-lbl">Suppliers</label>
+    </li>
+    <li class="nav-item" routerLink="/customer-list">
+      <i class="fa fa-home"></i> &nbsp; <label class="menu-item-lbl">Customers</label>
+    </li>
+    <li class="nav-item" routerLink="/po-list">
+      <i class="fa fa-home"></i> &nbsp; <label class="menu-item-lbl">Purchasing</label>
+    </li>
+    <li class="nav-item" routerLink="/sales-history">
+      <i class="fa fa-home"></i> &nbsp; <label class="menu-item-lbl">Sales</label>
+    </li>
+
+
+    <li class="nav-item"  data-toggle="collapse" data-target="#inventory">
+      <i class="fa fa-home"></i> &nbsp;
+      <label class="menu-item-lbl">Inventory</label>
+      <i class="fa fa-angle-down drop-down-arrow expand-arrow"></i>
+    </li>
+    <div class="clearfix">
+      <ul class="side-nav-item collapse" id="inventory">
+        <li class="nav-item menu-level-two" routerLink="/product-list">
+          <i class="fa fa-line-chart"></i>&nbsp;
+          <label class="menu-item-lbl">Products</label>
+        </li>
+        <li class="nav-item menu-level-two" routerLink="/categories">
+          <i class="fa fa-line-chart"></i>&nbsp;
+          <label class="menu-item-lbl">Categories</label>
+        </li>
+        <li class="nav-item menu-level-two" routerLink="/stock">
+          <i class="fa fa-home"></i> &nbsp;
+          <label class="menu-item-lbl">Stock</label>
+        </li>
+        <li class="nav-item menu-level-two" routerLink="/stock-list">
+          <i class="fa fa-home"></i> &nbsp;
+          <label class="menu-item-lbl">Stock list</label>
+        </li>
+        <li class="nav-item menu-level-two" routerLink="/b-n-m">
+          <i class="fa fa-home"></i> &nbsp;
+          <label class="menu-item-lbl">Brands/Models</label>
+        </li>
+      </ul>
+    </div>
+
+    <li class="nav-item" routerLink="/income-expense">
+      <i class="fa fa-home"></i> &nbsp; <label class="menu-item-lbl">Management</label>
+    </li>
+
+    <!--<li class="nav-item" routerLink="/account">-->
+      <!--<i class="fa fa-home"></i> &nbsp; <label class="menu-item-lbl">Account</label>-->
+    <!--</li>-->
+
+    <!--<li class="nav-item">-->
+      <!--<i class="fa fa-comments"></i> &nbsp; <label class="menu-item-lbl">Notifications</label>-->
+    <!--</li>-->
+    <!--<li class="nav-item" data-toggle="collapse" data-target="#dashboards">-->
+      <!--<i class="fa fa-dashboard"></i> &nbsp;-->
+      <!--<label class="menu-item-lbl">Dashboard</label>-->
+      <!--<i class="fa fa-angle-down drop-down-arrow expand-arrow"></i>-->
+    <!--</li>-->
+    <!--<div class="clearfix">-->
+      <!--<ul class="side-nav-item collapse" id="dashboards">-->
+        <!--<li class="nav-item menu-level-two" routerLink="/dashboard">-->
+          <!--<i class="fa fa-pie-chart"></i>&nbsp;-->
+          <!--<label class="menu-item-lbl">Dashboard 1</label>-->
+        <!--</li>-->
+        <!--<li class="nav-item menu-level-two" routerLink="/dashboard2">-->
+          <!--<i class="fa fa-line-chart"></i>&nbsp;-->
+          <!--<label class="menu-item-lbl">Dashboard 2</label>-->
+        <!--</li>-->
+        <!--<li class="nav-item menu-level-two" routerLink="/dashboard3">-->
+          <!--<i class="fa fa-line-chart"></i>&nbsp;-->
+          <!--<label class="menu-item-lbl">Dashboard 3</label>-->
+        <!--</li>-->
+      <!--</ul>-->
+    <!--</div>-->
+
+    <!--<li class="nav-item" routerLink="/pricing">-->
+      <!--<i class="fa fa-credit-card-alt" ></i> &nbsp;-->
+      <!--<label class="menu-item-lbl">Pricing</label>-->
+    <!--</li>-->
+    <!--<li class="nav-item" data-toggle="collapse" data-target="#t">-->
+      <!--<i class="fa fa-bar-chart-o" ></i> &nbsp;-->
+      <!--<label class="menu-item-lbl">Analyst</label>-->
+      <!--<i class="fa fa-angle-down drop-down-arrow expand-arrow"></i>-->
+    <!--</li>-->
+    <!--<div class="clearfix">-->
+      <!--<ul class="side-nav-item collapse" id="t">-->
+        <!--<li class="nav-item menu-level-two">-->
+          <!--<i class="fa fa-pie-chart"></i>&nbsp; <label class="menu-item-lbl">Pie Chart</label>-->
+        <!--</li>-->
+        <!--<li class="nav-item menu-level-two" data-toggle="collapse" data-target="#tt">-->
+          <!--<i class="fa fa-line-chart"></i>&nbsp; <label class="menu-item-lbl">Line Chart </label><i class="fa fa-angle-down drop-down-arrow expand-arrow"></i>-->
+        <!--</li>-->
+        <!--<div class="clearfix">-->
+          <!--<ul class="side-nav-item collapse" id="tt">-->
+            <!--<li class="nav-item menu-level-three">-->
+              <!--<i class="fa fa-headphones"></i>&nbsp; <label class="menu-item-lbl">Third level 1</label>-->
+            <!--</li>-->
+            <!--<li class="nav-item menu-level-three">-->
+              <!--<i class="fa fa-headphones"></i>&nbsp; <label class="menu-item-lbl">Third level 2</label>-->
+            <!--</li>-->
+          <!--</ul>-->
+        <!--</div>-->
+      <!--</ul>-->
+    <!--</div>-->
+    <!--<li class="nav-item" routerLink="/privileges">-->
+      <!--<i class="fa fa-sign-out"></i> &nbsp; <label class="menu-item-lbl">Privileges</label>-->
+    <!--</li>-->
+    <li class="nav-item" routerLink="/user-settings">
+      <i class="fa fa-wrench"></i> &nbsp; <label class="menu-item-lbl">Settings</label>
+    </li>
+  </ul>

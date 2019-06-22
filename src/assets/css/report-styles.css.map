@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AACE,eAAS;EACP,UAAU,EAAE,OAAO",
+"sources": ["report-styles.sass"],
+"names": [],
+"file": "report-styles.css"
+}

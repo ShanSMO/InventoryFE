@@ -1,0 +1,123 @@
+<div class="row" style="margin: 0">
+  <div class="col-md-10">
+
+    <div [class]="salesItems.length > 5 ? 'a4-paper' : 'a5-paper'" id="paper">
+      <!-- Watermark-->
+      <div class="watermark">
+        <img [attr.src]="companyLogo" class="watermark-img">
+      </div>
+
+      <div class="page-brdr">
+        <!-- LOGO and address-->
+        <div>
+          <div style="height: 100px">
+            <div class="row" style="margin: 0;">
+                <div>
+                  <img style="height: 100px;" [attr.src]="companyLogo">
+                </div>
+                <div style="padding: 10px;" *ngIf="company != null">
+                  <p class="no-margin f-12" >{{company.companyName}}</p>
+                  <p class="no-margin f-12" >{{company.contactNumber}}</p>
+                </div>
+            </div>
+          </div>
+
+          <div class="text-center inv-title-div">
+            <h3 class="inv-title">SALES INVOICE</h3>
+            <p *ngIf="sale != null" style="font-size: 13px;text-align: right;">Date : {{sale.saleDate|date:'yyyy-MM-dd'}}</p>
+          </div>
+          <div>
+          </div>
+        </div>
+
+
+        <div style="padding: 15px;">
+          <table  style="width: 100%;">
+            <thead class="p-t-h">
+            <tr class="report-t-h">
+              <th class="text-center">#</th>
+              <th class="text-center" width="45%">Description</th>
+              <th class="text-center" width="10%" >Qty</th>
+              <th class="text-center" width="15%" >Unit Price</th>
+              <th class="text-center" width="15%" >Discount</th>
+              <th class="text-center" width="15%" >Amount</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="rec-row" *ngFor="let item of salesItems;let id=index;">
+              <td>{{id + 1}}</td>
+              <td>{{item.product.productName}} | {{item.product.description}}</td>
+              <td class="text-center">{{item.quantity}}</td>
+              <td class="currency">{{item.sellingPrice | currency: ' '}}</td>
+              <td class="currency">{{ (item.discount > 0 ? item.discount : 0)  | currency: ' '}}</td>
+              <td class="currency">{{item.subTotal| currency: ' '}}</td>
+            </tr>
+
+            <tr class="spanned-row b-r">
+              <td colspan="4"></td>
+              <td>Sub Total (Rs.)</td>
+              <td class="b-b currency b-l">{{totalInvoice | currency: ' '}}</td>
+            </tr>
+            <tr class="spanned-row b-r">
+              <td colspan="4"></td>
+              <td>Discount</td>
+              <td class="b-b currency b-l">{{totalDiscount| currency: ' '}}</td>
+            </tr>
+            <tr class="spanned-row b-r">
+              <td colspan="4"></td>
+              <td>Invoice Total (Rs.)</td>
+              <td class="b-b currency b-l">{{totalAmount| currency: ' '}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+      <!-- Note 1-->
+      <div class="text-center">
+        <p class="f-12">*********** Please produce the invoice for warranty claims ***********</p>
+      </div>
+
+      <div>
+        <ul class="f-12">
+          <li *ngFor="let tos of termsAndConditions">{{tos.tos}}</li>
+        </ul>
+      </div>
+
+      <!-- Signatures-->
+      <div style="bottom: 10px;">
+
+        <!-- Customer -->
+        <div style="position: absolute;
+bottom: 10px;
+left: 30px;
+text-align: center;
+font-size: 12px;">
+          ------------------------------------------
+          <p>Buyer Signature</p>
+        </div>
+
+        <!--  Seller -->
+        <div style="position: absolute;
+bottom: 10px;
+right: 30px;
+text-align: center;
+font-size: 12px;">
+          ------------------------------------------
+          <p>Seller Signature</p>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+  <div class="col-md-2" style="    padding: 25px 20px 0 0px;text-align: center;width: 100%;">
+    <button class="btn btn-success form-group" style="width: 100%;font-size: 14px;font-weight: 400;" (click)="printDiv()">
+      <i class="fa fa-print" aria-hidden="true" style="margin-right: 10px;"></i> Print
+    </button>
+    <button class="btn btn-danger" style="width: 100%;font-size: 14px;font-weight: 400;" (click)="goBack()">
+      Back
+    </button>
+  </div>
+</div>

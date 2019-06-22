@@ -1,0 +1,59 @@
+<div class="container-fluid" >
+  <app-notification></app-notification>
+
+  <div class="row">
+    <div class="col-md-4 login-form" style="background: #fffffd;">
+      <form [formGroup]="loginForm">
+        <div class="form-group text-center">
+          <img src="assets/images/u-g.png" style="width: 100px;">
+          <!--<i class="fa fa-sign-in fa-3x"></i>-->
+          <h3 class="txt-sign-in">CC-Tech</h3>
+          <p class="txt-sign-in" style="font-size: 12px;">Computer Care & Technologies</p>
+        </div>
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-prepend">
+                        <span class="input-group-text" style="background-color: #76a788;color: #fff;">
+                            <i class="fa fa-envelope"></i>
+                        </span>
+            </div>
+            <input type="text" class="form-control" placeholder="user name or email" formControlName="userName" style="background: #ececec;">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-prepend">
+                        <span class="input-group-text" style="background-color: #76a788;color: #fff;">
+                            <i class="fa fa-key"></i>
+                        </span>
+            </div>
+            <input type="password" class="form-control" placeholder="password" formControlName="userPassword" style="background: #ececec;">
+          </div>
+
+        </div>
+
+        <div class="login-error-bg animated shake" *ngIf="isLoginError">
+          <p class="login-error">{{loginErrorMessage}}</p>
+        </div>
+
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md">
+              <a routerLink="/forgot">Forgot password?</a>
+            </div>
+            <div class="col-md">
+              <button class="btn btn-success btn-login" (click)="userLogin()">Login</button>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="text-center" style="border-top: 1px solid #afafaf">
+          <p class="txt-membership">Still not registered ?</p>
+          <a routerLink="/register">Create an account</a>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,85 @@
+<div class="row" style="margin: 0;">
+  <!--<div class="col-md-2"></div>-->
+  <div class="col-md-6">
+    <div class="customer-d-div">
+      <form [formGroup]="categoryForm">
+        <div class="alert-d">
+          Note: Once you create a category , you cannot change the name
+        </div>
+
+        <!-- Success Message -->
+        <div class="success-bg animated bounceIn" style="margin-bottom: 5px;" *ngIf="isSuccess">
+          <p class="success-text text-left">
+            Category has been successfully created
+          </p>
+        </div>
+
+        <div class="row form-group type-selection-box">
+          <div class="col-md-6 text-center">
+            <label class="type-label">Category</label> <br>
+            <input type="radio" name="type" value="CAT" [(ngModel)]="type" [ngModelOptions]="{standalone: true}" checked>
+          </div>
+          <div class="col-md-6 text-center">
+            <label class="type-label">Sub category</label> <br>
+            <input type="radio" name="type" value="SUBCAT" [(ngModel)]="type" [ngModelOptions]="{standalone: true}" (click)="loadCategories()">
+          </div>
+        </div>
+
+        <div class="row" *ngIf="type !== 'CAT' && categories.length > 0">
+          <div class="col-md-3">
+            <label>Category</label>
+          </div>
+          <div class="col-md-9">
+            <select class="form-control" [(ngModel)]="parentCategory" [ngModelOptions]="{standalone: true}">
+              <option *ngFor="let category of categories" [ngValue]="category">{{category.categoryName}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row ">
+          <div class="col-md-3">
+            <label>{{type === 'CAT' ? 'Category' : 'S.Category'}}</label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" placeholder="Category name" class="input-box col-md-12"
+                   formControlName="categoryName" tabindex="1" [(ngModel)]="description">
+          </div>
+        </div>
+
+        <div class="row form-group">
+          <div class="col-md-3">
+            <label>Description</label>
+          </div>
+          <div class="col-md-9">
+            <textarea class="form-control" formControlName="description" tabindex="2" [value]="description"></textarea>
+          </div>
+        </div>
+
+        <div class="row" style="float: right;margin: 0;" >
+          <button class="btn btn-success" type="reset" style="margin-right: 5px;">Reset</button>
+          <button class="btn btn-success" (click)="createCategory()" type="button" tabindex="3"
+                  [disabled]="categoryForm.invalid || imageFile == null">Save Category</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="row" style="position: relative;margin: 5px 0">
+      <div style="background: #f6f6f6; height: 200px;width: 100%;border: 1px solid;">
+        <div class="col-md-12" style="height: 100%;width: 100%;object-fit: contain;"
+             [style.content]="imageForView">
+        </div>
+      </div>
+
+      <div class="col-md-12">
+        <div style="position: relative;text-align: center;margin-bottom: 15px;">
+          <button class="btn btn-success" style="position: absolute;margin: 5px 0;width: 100%;">
+            <i class="fa fa-camera" aria-hidden="true"></i>
+            Choose / Capture Product Image </button>
+          <input (change)="readFile($event)" type="file" style="opacity: 0;width: 100%;height: 30px;margin-top: 5px;cursor: pointer;">
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

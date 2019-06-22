@@ -1,0 +1,130 @@
+
+@media print {
+
+  body {
+    font-family: 'Roboto', sans-serif;
+  }
+
+  table {
+    border-collapse: collapse;
+  }
+
+
+  .rec-row > td {
+    border-right: 1px solid #b3b3b3;
+    padding: 0 5px
+  }
+
+  .p-t-h{
+    height: 30px;
+    background: #e4e4e4 ;
+    border: 1px solid #b3b3b3 ;
+  }
+
+  .no-margin{
+    margin: 0;
+  }
+
+  .text-center {
+    text-align: center
+  }
+  .inv-title {
+    background: #626262;
+    color: #fff;
+    padding: 2px 20px;
+  }
+
+  .inv-title-div {
+    position: absolute;
+    top: 1cm;
+    right: 0.8cm;
+  }
+
+  .f-12 {
+    font-size: 12px
+  }
+
+  .watermark {
+    position: absolute;
+    opacity: 0.09;
+    text-align: center;
+    width: 100%;
+  }
+
+  .a4-paper {
+    background: white;
+    width: 21cm;
+    height: 29.7cm;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 0.5cm;
+    box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border: 1px solid #747474;
+    position: relative;
+  }
+
+  .report-t-h > th {
+    font-size: 13px;
+  }
+
+  .no-margin {
+    margin: 0;
+  }
+
+  body {
+    background: rgb(204, 204, 204);
+  }
+
+  .a5-paper {
+    background: white;
+    width: 210mm;
+    height: 148.5mm;
+    display: block;
+    box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border: 1px solid #747474;
+    margin: 25px auto;
+    position: relative;
+  }
+
+  .rec-row {
+    height: 35px;
+    font-size: 12px;
+    border-left: 1px solid #b3b3b3;
+    border-bottom: 1px solid #b3b3b3 !important;
+  }
+
+  .spanned-row {
+    height: 30px;
+    font-size: 12px;
+  }
+
+  .currency {
+    text-align: right;
+    padding-right: 5px;
+  }
+  .b-r {
+    border-right: 1px solid #b3b3b3;
+  }
+  .b-l {
+    border-left: 1px solid #b3b3b3;
+  }
+  .b-b{
+    border-bottom: 1px solid #b3b3b3;
+  }
+
+  .watermark-img {
+    width: 350px;
+    height: 350px;
+    transform: translateY(20%);
+  }
+
+  .page-brdr {
+    border: 1px solid #adadad;
+    padding: 10px;
+    height: auto;
+  }
+
+  .row{display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap;}
+}

@@ -1,0 +1,103 @@
+<div style="background: #fff;">
+
+  <div style="border-bottom: 1px solid #686868;width: 100%;margin: 0 10px;">
+    <app-com-title-bar [title]="'STOCK SUMMARY'"></app-com-title-bar>
+  </div>
+
+  <div style="margin-top: 15px;padding: 5px;    ">
+
+    <div style="padding: 0 10px;">
+      <app-search [searchOptions]="searchOps" (searchRequest)="searchStock($event)"></app-search>
+    </div>
+
+    <!--class="mCustomScrollbar" data-mcs-theme="dark"-->
+    <div style="max-height: 480px;
+    overflow-y: auto;overflow-x: hidden;">
+
+      <div *ngIf="stock == null || stock.length <= 0" class="no-item-div">
+        <p class="no-items">No Records Found</p>
+      </div>
+      <div *ngIf="stock !== null && stock.length > 0">
+        <table class="table table-bordered ">
+          <thead>
+          <tr>
+            <th class="text-center">#</th>
+            <th>Category</th>
+            <th>
+              <div class="row" style="padding: 0;">
+                <div class="col-md-8">Product/s</div>
+                <div class="col-md-4">Available Quantity</div>
+              </div>
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let stockData of stock; let id = index;">
+            <th class="text-center">{{id + 1}}</th>
+            <td>{{stockData.category.categoryName}}</td>
+            <td>
+              <ul>
+                <li *ngFor="let subCategory of stockData.items">
+                  {{subCategory.category.categoryName}}
+
+
+
+                  <ol>
+                    <li *ngFor="let item of subCategory.stockItem" style="margin: 1px;">
+                      <div [class]="item.count < 10 ? 'row low-stock': 'row'" style="padding: 0;margin-right: 10px;">
+                        <div class="col-md-8">{{item.product.productName}} &nbsp;&nbsp;
+                          <p *ngIf="item.count <= 0" class="out-of-stock">Out Of Stock</p>
+                        </div>
+                        <div class="col-md-4">{{item.count}}</div>
+                      </div>
+                    </li>
+                  </ol>
+
+
+
+                  <ul *ngIf="subCategory.stockItem.length <= 0" style="list-style: none;padding: 0 15px;">
+                    <li>
+                      <p>
+                        <label class="no-prod">No Products</label>
+                      </p>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+              <ul style="list-style: none;padding: 0 15px;" *ngIf="stockData.items.length <= 0">
+                <li style="margin: 1px;">
+                  <p>
+                    <label class="no-prod">No Products</label>
+                  </p>
+                </li>
+              </ul>
+
+
+              <!--<ul style="list-style: none;padding: 0 15px;">-->
+              <!--<li style="margin: 1px;">-->
+              <!--<p *ngIf="stockData.stockItem.length <= 0">-->
+              <!--<label class="no-prod">No Products</label>-->
+              <!--</p>-->
+              <!--</li>-->
+              <!--</ul>-->
+              <!--<ul>-->
+              <!--<li *ngFor="let item of stockData.stockItem" style="margin: 1px;">-->
+              <!--<div [class]="item.count < 10 ? 'row low-stock': 'row'" style="padding: 0;margin-right: 10px;">-->
+              <!--<div class="col-md-8">{{item.product.productName}} &nbsp;&nbsp;-->
+              <!--<p *ngIf="item.count <= 0" class="out-of-stock">Out Of Stock</p>-->
+              <!--</div>-->
+              <!--<div class="col-md-4">{{item.count}}</div>-->
+              <!--</div>-->
+              <!--</li>-->
+              <!--</ul>-->
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+
+</div>

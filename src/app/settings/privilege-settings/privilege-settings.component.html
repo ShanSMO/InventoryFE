@@ -1,0 +1,83 @@
+<div style="position: relative;padding: 5px;">
+
+  <div class="row" style="margin: 0;">
+    <div class="col-md-3" style="border: 1px solid #676;border-radius: 5px;background: rgba(12, 161, 113, 0.3);">
+      <p class="us-title">Create New Permissions</p>
+      <div>
+        <h4 style="padding-top: 90px;text-align: center;color: #16768a;"> Coming Soon </h4>
+      </div>
+
+    </div>
+
+    <div class="col-md-9">
+      <div class="row" style="margin: 0;">
+        <div class="col-md-2">
+          <label> User </label>
+        </div>
+        <div class="col-md-8">
+          <select class="form-control input-box" [(ngModel)]="selectedUserId" (change)="loadPrivileges()">
+            <option *ngFor="let user of userList" [ngValue]="user.id">{{user.userName}}</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <button class="btn btn-success">Load Privileges</button>
+        </div>
+      </div>
+
+      <div>
+        <p class="us-title">Assign Permissions</p>
+        <div>
+          <div class="row" style="margin: 0;" *ngIf="accessLevels.length > 0">
+            <div class="col-md-4" style="padding: 0 2px;">
+              <p>Side Menu Access</p>
+              <ul style="list-style: none;font-size: 13px;padding: 0 2px;" >
+                <li *ngFor="let headLevel of accessLevels" class="li-access-level"  (click)="setSelectedSubLevel(headLevel)">
+                  <div class="row" style="margin: 0;">
+                    <div><input type="checkbox" [checked]="headLevel.hasAccess" (change)="assignPrivileges(headLevel, $event)"></div>
+                    <div style="margin-left: 10px;margin-top: -2px;">
+                      <p>{{headLevel.privilege.privilegeName}}</p>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <div class="col-md-4" style="padding: 0 2px;">
+              <p>In Page Access</p>
+              <ul style="list-style: none;font-size: 13px;padding: 0 2px;"  *ngIf="selectedSubLevel.length > 0">
+                <li *ngFor="let subLevel of selectedSubLevel" style="height: 25px;
+background: #b8d8c9;
+padding: 5px;
+margin-bottom: 2px;cursor: pointer;" (click)="setSelectedSubLevel2(subLevel)">
+                  <div class="row" style="margin: 0;">
+                    <div><input type="checkbox" [checked]="subLevel.hasAccess" (change)="assignPrivileges(subLevel, $event)"></div>
+                    <div style="margin-left: 10px;
+margin-top: -2px;"><p>{{subLevel.privilege.privilegeName}}</p></div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <div class="col-md-4" style="padding: 0 2px;">
+              <p>In Page Access</p>
+              <ul style="list-style: none;font-size: 13px;padding: 0;"  *ngIf="selectedSubLevel2.length > 0">
+                <li *ngFor="let subLevel of selectedSubLevel2" style="height: 25px;
+background: #b8d8c9;
+padding: 5px;
+margin-bottom: 2px;cursor: pointer;">
+                  <div class="row" style="margin: 0;">
+                    <div><input type="checkbox"></div>
+                    <div style="margin-left: 10px;
+margin-top: -2px;"><p>{{subLevel.level}}</p></div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>

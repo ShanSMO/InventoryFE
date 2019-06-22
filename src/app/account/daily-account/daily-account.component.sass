@@ -1,0 +1,101 @@
+@import "../../../assets/css/buttons"
+@import "../../../assets/css/inputs"
+@import "../../../assets/css/common"
+
+.account-sett
+  list-style: none
+  color: #ffffff
+  padding: 5px 0 0 15px
+  width: 150px
+  font-weight: 400
+  font-size: 14px
+
+  li
+    background: #007aad
+    padding: 5px 0 0 15px
+    border-top: 1px solid #fff
+    cursor: pointer
+    max-width: 100%
+    i
+      padding-right: 10px
+
+  li:hover
+    background: #0094cf
+    padding: 5px 0 0 15px
+    border-top: 1px solid #fff
+    cursor: pointer
+    max-width: 100%
+
+    i
+      padding-right: 10px
+
+  li:first-child
+    border-top: none
+
+.li-start
+  -webkit-border-radius: 10px 10px 0 0
+  -moz-border-radius: 10px 10px 0 0
+  border-radius: 10px 10px 0 0
+
+
+.li-end
+  -webkit-border-radius: 0 0 10px 10px
+  -moz-border-radius: 0 0 10px 10px
+  border-radius: 0 0 10px 10px
+
+.block
+  width: 25px
+  height: 25px
+  display: block
+  position: relative
+  margin-bottom: 12px
+  cursor: pointer
+  font-size: 16px
+  -webkit-user-select: none
+  -moz-user-select: none
+  -ms-user-select: none
+  user-select: none
+
+.block input
+  position: absolute
+  opacity: 0
+  cursor: pointer
+  height: 0
+  width: 0
+  z-index: 1001
+  top: 0
+  left: 0
+  bottom: 0
+  right: 0
+  margin: auto
+
+.check-ic
+  position: absolute
+  top: 0
+  left: 0
+  height: 25px
+  width: 25px
+  background-color: #eee
+  border: 1px solid #0c7a9e
+  text-align: center
+
+.block:hover input ~ .check-ic
+  background-color: #ccc
+
+.block input:checked  ~ .check-ic
+  background-color: #2196F3
+
+.check-ic:after
+  content: "\2713"
+  position: absolute
+  display: none
+  width: 100%
+
+.block input:checked ~ .check-ic:after
+  display: block
+
+.block .check-ic:after
+  color: #ffffff
+  content: "\2714"
+
+

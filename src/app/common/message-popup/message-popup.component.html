@@ -1,0 +1,37 @@
+<div class="modal fade" id="removeProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" *ngIf="showPopup">
+  <div class="modal-dialog" role="document" >
+    <div class="modal-content" style="width: 100%;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel" style="font-size: 16px;font-weight: 600;color: #6c6c6c;">
+          Attention
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="action('CLOSE')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="text-center">
+          <i class="fa fa-question fa-4x" style="color: #5a5a5a;"></i>
+        </div>
+        <div style="padding: 15px;color: #444;" class="text-center">
+          <div>
+            <p>කරුණාකර මෙම නිෂ්පාදනයේ ක්‍රියාකාරී ආකාරය පහත මෙනුවෙන් තෝරා එය සනාථ කරන්න.</p>
+            <p>Please select the Active status of this product from below drop down and conform it.</p>
+          </div>
+
+          <div>
+            <select class="form-control" style="width: 50%;text-align: center;font-weight: 700;margin: 0 auto;" [(ngModel)]="currentStatus">
+              <option *ngFor="let status of statusList" [value]="status.key">{{status.value}}</option>
+            </select>
+          </div>
+
+        </div>
+
+      </div>
+      <div class="modal-footer" style="justify-content: center;">
+        <button class="btn btn-danger" data-dismiss="modal" (click)="action('NO')" *ngIf="type == 'CONFIRM'">Cancel</button>
+        <button class="btn btn-success" data-dismiss="modal" (click)="action('YES')" *ngIf="type == 'CONFIRM' || type == 'NORMAL'">OK</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+<div class="clearfix menu-bg">
+  <div class="row" style="margin:5px 0;">
+
+    <div  *ngFor="let menuItem of menuList;let id = index;" [routerLink]="menuItem.routerLink"
+         [attr.id]="'menu_'+id" #menu (click)="setSelected(menu.id)" [attr.class]="id == 0 ? 'menu selected':'menu'">
+      <i [class]="menuItem.icon" aria-hidden="true"></i>
+      <span>{{menuItem.label}}</span>
+    </div>
+
+  </div>
+</div>

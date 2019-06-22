@@ -1,0 +1,89 @@
+<div class="animated side-nav" id="sideNav">
+  <div class="clearfix text-center" style="position: relative;" id="profile">
+    <div style="color: #ffffff;position:absolute;right: 5px;font-size: 13px;">
+      <i class="fa fa-edit"></i>
+    </div>
+    <img [src]="logoImage" class="company-logo">
+    <div style="margin-top: 15px;">
+      <p class="log-user">{{loggedCompany}}</p>
+      <p class="log-user-name">{{loggedInUser}}</p>
+    </div>
+  </div>
+  <div class="clearfix text-center" style="position: relative;" id="profile-mini">
+    <div style="color: #ffffff;position:absolute;right: 5px;font-size: 13px;">
+    </div>
+    <img [src]="logoImage" style="width: 40px;margin-top: 10px;margin-bottom: 10px;border-radius: 50px;">
+  </div>
+
+
+  <ul class="side-nav-item">
+
+    <ng-container *ngFor="let navItem of accessibleItems">
+      <li class="nav-item"   *ngIf="navItem.privilegeType == 'SIDE_MENU_ITEM' && navItem.level == 1" [routerLink]="navItem.url" (click)="getPrivileges(navItem)">
+        <i [class]="'fa ' + navItem.icon"></i> &nbsp; <label class="menu-item-lbl">{{navItem.privilegeName}}</label>
+      </li>
+    </ng-container>
+
+
+
+
+
+
+
+
+
+
+    <!--<li class="nav-item" routerLink="/dashboard-summary">-->
+      <!--<i class="fa fa-home"></i> &nbsp; <label class="menu-item-lbl">Dashboard</label>-->
+    <!--</li>-->
+    <!--<li class="nav-item" routerLink="/supplier-list">-->
+      <!--<i class="fa fa-home"></i> &nbsp; <label class="menu-item-lbl">Suppliers</label>-->
+    <!--</li>-->
+    <!--<li class="nav-item" routerLink="/customer-list">-->
+      <!--<i class="fa fa-home"></i> &nbsp; <label class="menu-item-lbl">Customers</label>-->
+    <!--</li>-->
+    <!--<li class="nav-item" routerLink="/po-list">-->
+      <!--<i class="fa fa-home"></i> &nbsp; <label class="menu-item-lbl">Purchasing</label>-->
+    <!--</li>-->
+    <!--<li class="nav-item" routerLink="/sales-history">-->
+      <!--<i class="fa fa-home"></i> &nbsp; <label class="menu-item-lbl">Sales</label>-->
+    <!--</li>-->
+
+
+    <!--<li class="nav-item"  data-toggle="collapse" data-target="#inventory">-->
+      <!--<i class="fa fa-home"></i> &nbsp;-->
+      <!--<label class="menu-item-lbl">Inventory</label>-->
+      <!--<i class="fa fa-angle-down drop-down-arrow expand-arrow"></i>-->
+    <!--</li>-->
+    <!--<div class="clearfix">-->
+      <!--<ul class="side-nav-item collapse" id="inventory">-->
+        <!--<li class="nav-item menu-level-two" routerLink="/product-list">-->
+          <!--<i class="fa fa-line-chart"></i>&nbsp;-->
+          <!--<label class="menu-item-lbl">Products</label>-->
+        <!--</li>-->
+        <!--<li class="nav-item menu-level-two" routerLink="/categories">-->
+          <!--<i class="fa fa-line-chart"></i>&nbsp;-->
+          <!--<label class="menu-item-lbl">Categories</label>-->
+        <!--</li>-->
+        <!--<li class="nav-item menu-level-two" routerLink="/stock">-->
+          <!--<i class="fa fa-home"></i> &nbsp;-->
+          <!--<label class="menu-item-lbl">Stock</label>-->
+        <!--</li>-->
+        <!--<li class="nav-item menu-level-two" routerLink="/stock-list">-->
+          <!--<i class="fa fa-home"></i> &nbsp;-->
+          <!--<label class="menu-item-lbl">Stock list</label>-->
+        <!--</li>-->
+        <!--<li class="nav-item menu-level-two" routerLink="/b-n-m">-->
+          <!--<i class="fa fa-home"></i> &nbsp;-->
+          <!--<label class="menu-item-lbl">Brands/Models</label>-->
+        <!--</li>-->
+      <!--</ul>-->
+    <!--</div>-->
+    <!--<li class="nav-item" routerLink="/income-expense">-->
+      <!--<i class="fa fa-home"></i> &nbsp; <label class="menu-item-lbl">Management</label>-->
+    <!--</li>-->
+    <!--<li class="nav-item" routerLink="/user-settings">-->
+      <!--<i class="fa fa-wrench"></i> &nbsp; <label class="menu-item-lbl">Settings</label>-->
+    <!--</li>-->
+  </ul>
+</div>

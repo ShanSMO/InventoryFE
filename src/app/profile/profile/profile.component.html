@@ -1,0 +1,63 @@
+<div class="content" style="margin-top: 10px;background: #f6f6f6;">
+
+  <div class="row">
+    <div class="col-md-3" style="padding: 25px;">
+      <div class="form-group">
+        <img class="prof-img" src="../../../assets/images/profile-img.jpg">
+      </div>
+      <div>
+
+        <div class="text-center">
+          <h4>{{profile.firstName}} {{profile.lastName}}</h4>
+          <h6><i class="fa fa-map-marker"></i> &nbsp;&nbsp;{{profile.address.city}}</h6>
+        </div>
+
+      </div>
+    </div>
+    <div class="col-md-9" style="padding: 25px;">
+
+
+
+
+      <div>
+        <div class="row">
+          <div class="col-md-4"><label>Phone</label></div>
+          <div class="col-md-8">: {{profile.phoneNumber}}</div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4"><label>Address</label></div>
+          <div class="col-md-8"> :
+            <label>{{profile.address.houseNo}}</label>,
+            <label>{{profile.address.street}}</label>,
+            <label>{{profile.address.city}}</label>,
+            <label>{{profile.address.country}}</label>,
+            <label>{{profile.address.zipCode}}</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4"><label>Email</label></div>
+          <div class="col-md-8">: {{profile.email}}</div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4"><label>Site</label></div>
+          <div class="col-md-8">: {{profile.website}}</div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4"><label>Facebook</label></div>
+          <div class="col-md-8">: {{profile.facebookUrl}}</div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4"><label>Twitter</label></div>
+          <div class="col-md-8">: {{profile.twitterUrl}}</div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>

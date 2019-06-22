@@ -1,0 +1,20 @@
+<div>
+  <!--<label style="font-size: 12px;font-weight: 600;color: #575757;">Total : {{recordCount}} Records | {{(pageCount-1) | number: '1.0-0'}} Page(s)</label>-->
+  <label style="font-size: 12px;font-weight: 600;color: #575757;">Total : {{recordCount}} Records</label>
+  <div style="position: relative;width: 100%;" *ngIf="pageCount >= 2">
+    <nav aria-label="Page navigation">
+      <ul class="pagination">
+        <li class="page-item"><a [class]="hasLessPages ? 'page-link has-more-less' : 'page-link'" (click)="addBack()">
+          <i class="fa fa-chevron-left"></i>
+        </a></li>
+        <li class="page-item" *ngFor="let page of pageCountArray.slice(startPage,endPage)" (click)="goToPage(page)" >
+          <a [class]="page == 1 ? 'page-link current-p': 'page-link'" [attr.id]="'selected_'+page">{{page}}</a>
+        </li>
+
+        <li class="page-item"><a [class]="hasMorePages ? 'page-link has-more-less' : 'page-link'"  (click)="addFront()">
+          <i class="fa fa-chevron-right"></i>
+        </a></li>
+      </ul>
+    </nav>
+  </div>
+</div>

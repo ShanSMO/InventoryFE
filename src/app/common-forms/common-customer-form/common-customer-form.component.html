@@ -1,0 +1,125 @@
+<div class="content">
+  <!-- Information Message -->
+  <div class="info-bg" style="margin: 15px">
+    <p class="info-text text-left">
+      <strong>Note : </strong>
+      * indicates Mandatory fields. All mandatory fields should fill with correct data.
+    </p>
+  </div>
+
+  <!-- Success Message -->
+  <div class="success-bg animated bounceIn" style="margin: 15px" *ngIf="isSuccess">
+    <p class="success-text text-left">
+      Customer has been successfully created
+    </p>
+  </div>
+
+  <form [formGroup]="customerForm">
+    <div class="row" style="margin-left: 0;margin-top: 20px;margin-right: 0;background: #fff;padding: 5px;">
+
+      <div class="col-md-6 customer-d-div">
+
+        <div class="row ">
+          <div class="col-md-3">
+            <label>Name * </label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" placeholder="First name" class="input-box col-md-12" formControlName="firstName" tabindex="1">
+            <div class="invalid-bg" *ngIf="customerForm.get('firstName').touched && customerForm.get('firstName').errors">
+              <p class="invalid-text" *ngIf="customerForm.get('firstName').errors.required">Name is required</p>
+              <p class="invalid-text" *ngIf="customerForm.get('firstName').errors.pattern">Invalid name</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row ">
+          <div class="col-md-3">
+            <label>Phone</label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" placeholder="Phone" class="input-box col-md-12" formControlName="phoneNumber" tabindex="2">
+            <div class="invalid-bg" *ngIf="customerForm.get('phoneNumber').invalid">
+              <p class="invalid-text">Invalid phone number</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <label>Fax</label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" placeholder="Fax" class="input-box col-md-12" formControlName="faxNumber" tabindex="3">
+            <div class="invalid-bg" *ngIf="customerForm.get('faxNumber').invalid">
+              <p class="invalid-text">Invalid fax number</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <label>E-mail</label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" placeholder="E-mail" class="input-box col-md-12" formControlName="emailAddress" tabindex="4">
+            <div class="invalid-bg" *ngIf="customerForm.get('emailAddress').invalid">
+              <p class="invalid-text">Invalid email address</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <label>Website</label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" placeholder="Website" class="input-box col-md-12" formControlName="website" tabindex="5">
+            <div class="invalid-bg" *ngIf="customerForm.get('website').invalid">
+              <p class="invalid-text">Invalid website</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-md-6 customer-d-div">
+        <div class="row" formGroupName="address">
+          <div class="col-md-3">
+            <label>Address</label>
+          </div>
+          <div class="col-md-9">
+            <div class="row" style="margin-bottom: 2px;">
+              <input type="text" placeholder="House No:" class="input-box col-md-12" formControlName="houseNo" tabindex="6">
+            </div>
+            <div class="row" style="margin-bottom: 2px;">
+              <input type="text" placeholder="Street" class="input-box col-md-12" formControlName="street" tabindex="7">
+            </div>
+            <div class="row" style="margin-bottom: 2px;">
+              <input type="text" placeholder="City" class="input-box col-md-12" formControlName="city" tabindex="8">
+            </div>
+            <div class="row" style="margin-bottom: 2px;">
+              <input type="text" placeholder="Postal code" class="input-box col-md-12" formControlName="zipCode" tabindex="9">
+            </div>
+            <div class="invalid-bg" *ngIf="customerForm.get('address').get('zipCode').invalid">
+              <p class="invalid-text">Invalid fax number</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <label>Remarks</label>
+          </div>
+          <div class="col-md-9 p-0">
+            <textarea class="form-control" formControlName="description" tabindex="10"></textarea>
+          </div>
+        </div>
+
+        <div style="float: right;margin-top: 5px;" class="row">
+          <button type="button" class="btn btn-success" (click)="createCustomer()" tabindex="11">{{formType}} Customer</button>
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>

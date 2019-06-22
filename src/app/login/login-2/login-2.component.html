@@ -1,0 +1,52 @@
+<div class="container-fluid" style="background: #f9f9f9;    max-height: 800px;
+    height: 600px;">
+
+  <div class="row">
+
+    <div class="col-md-3"></div>
+    <div class="col-md-6 text-center" style="padding: 10px 0;">
+
+      <div>
+        <img src="./assets/images/logo-2.png" style="width: 160px;">
+      </div>
+
+      <div>
+        <h4 class="login-title-1" >Hi , Good Morning !</h4>
+        <h5 class="login-title-2" >Welcome to E-Biz</h5>
+      </div>
+      <form [formGroup]="loginForm">
+      <div id="form" style="width: 420px;margin: 0 auto;background: #fff;box-shadow: 0 0 5px #dbdbdb;padding: 20px;border-radius: 7px;">
+        <fieldset class="field-set-color">
+          <legend style="color: #444">User Name / Email</legend>
+          <input type="text" class="form-control login-input lgn-inp" formControlName="userName" >
+        </fieldset>
+
+        <fieldset class="field-set-color">
+          <legend style="color: #444">Password</legend>
+          <input type="password" class="form-control login-input lgn-inp" formControlName="userPassword">
+        </fieldset>
+
+        <div class="login-error-bg animated shake" *ngIf="isLoginError">
+          <p class="login-error">{{loginErrorMessage}}</p>
+        </div>
+
+        <button class="btn btn-login" style="width: 100%;font-size: 14px;font-weight: 800;margin-top: 10px;" (click)="userLogin()">
+          Sign in
+        </button>
+      </div>
+      </form>
+
+      <div class="row" style="width: 420px;margin: 0 auto;">
+        <div class="col-md-6 text-left">
+          <a routerLink="/register">Register</a>
+        </div>
+        <div class="col-md-6 text-right">
+          <a routerLink="/forgot">Fortgot password ?</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3"></div>
+
+  </div>
+
+</div>

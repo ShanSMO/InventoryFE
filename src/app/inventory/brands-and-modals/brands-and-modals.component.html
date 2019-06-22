@@ -1,0 +1,66 @@
+<div class="content-bg">
+
+  <div class="title-div">
+    <app-com-title-bar [title]="'BRANDS/MODELS'"></app-com-title-bar>
+  </div>
+
+    <div class="row" style="padding: 15px;">
+
+      <div class="col-md-3">
+        <!-- Success Message -->
+        <div class="success-bg animated bounceIn" style="margin-bottom: 5px;" *ngIf="isSuccess">
+          <p class="success-text text-left">
+            Brand/Modal has been successfully created
+          </p>
+        </div>
+
+        <div class="error-text animated bounceIn" *ngIf="hasError" >
+          <p class="error-bg">{{errorMessage}}</p>
+        </div>
+
+        <form [formGroup]="brandForm">
+          <div class="form-group">
+            <label>Brand name</label>
+            <input type="text" class="input-box col-md-12" formControlName="brandName">
+          </div>
+
+          <div>
+            <button type="reset" class="btn btn-warning" style="margin-right: 5px;">Clear</button>
+            <button class="btn btn-success" (click)="createBrand()">Save</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="col-md-9">
+        <div style="padding: 0 10px;">
+          <app-search [searchOptions]="searchOptions" (searchRequest)="searchBrand($event)"></app-search>
+        </div>
+
+        <table class="table table-bordered ">
+          <thead>
+          <tr>
+            <th class="text-center" style="width: 45px;">#</th>
+            <th>Brand name</th>
+            <th>Related Modals</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let brand of brandList;let id = index;">
+            <th class="text-center">{{ ((id + 1 )%10 !== 0) ? currentPage: ''}}{{((id + 1)%10 === 0) ? (10 * (currentPage + 1)) :  id + 1}}</th>
+            <td>{{brand.brandName}}</td>
+            <td></td>
+          </tr>
+          </tbody>
+        </table>
+        <div>
+          <app-pagination [recordsPerPage]="10"
+                          [recordCount]="totalRecords"
+                          *ngIf="totalRecords > 0"
+                          (goToThePage)="goToPage($event)">
+          </app-pagination>
+        </div>
+      </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,OAAO;EACL,aAAa,EAAE,IAAI",
+"sources": ["padding_vars.sass"],
+"names": [],
+"file": "padding_vars.css"
+}

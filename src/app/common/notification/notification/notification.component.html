@@ -1,0 +1,23 @@
+<div class="ss-alert">
+  <div class="noti-body"   *ngFor="let notification of notificationList"
+       [ngClass]="notification.type == 'SUCCESS' ? 'success' :
+        notification.type == 'ERROR' ? 'error' :
+        notification.type == 'INFO' ? 'info':
+        notification.type == 'WARNING' ? 'warn': ''">
+    <span class="ic-close"><i class="fa fa-close"></i></span>
+    <div class="row">
+      <div style="width: 40px;display: inline;padding: 5px 15px;">
+        <i style="font-size: 25px;" class="fa  alert-ic"
+           [ngClass]="notification.type == 'SUCCESS' ? 'fa-check' :
+            notification.type == 'ERROR' ? 'fa-exclamation-triangle' :
+            notification.type == 'INFO' ? 'fa-info':
+            notification.type == 'WARNING' ? 'fa-exclamation': ''"
+           aria-hidden="true"></i>
+      </div>
+      <div style="width: 260px;display: inline;padding: 0 10px;">
+        <span class="noti-title">{{notification.title}}</span><br>
+        <p class="noti-message">{{notification.message}}</p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+ <div class="menu" *ngFor="let menuItem of menuList">
+      <i [class]="menuItem.icon" aria-hidden="true"></i>
+      <span>{{menuItem.label}}</span>
+ </div>
+
+ menuItemList: any[] = [
+     {label: 'New',  icon: 'fa fa-file'},
+     {label: 'Save',  icon: 'fa fa-save'},
+     {label: 'Copy',  icon: 'fa fa-files-o'},
+     {label: 'Customer list',  icon: 'fa fa-list'},
+     {label: 'Edit',  icon: 'fa fa-pencil'},
+     {label: 'Order History',  icon: 'fa fa-history'}
+   ];
