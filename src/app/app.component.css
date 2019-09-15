@@ -1,3 +1,13 @@
-@import url(~@ng-select/ng-select/themes/default.theme.css);
+@import "~@ng-select/ng-select/themes/default.theme.css";
+footer {
+  background: #444;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  font-size: 11px;
+  color: #fff;
+  text-align: center;
+  padding: 5px;
+}
 
 /*# sourceMappingURL=app.component.css.map */

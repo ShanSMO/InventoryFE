@@ -1,7 +1,1 @@
-{
-"version": 3,
-"mappings": "AAAQ,2DAAgD",
-"sources": ["app.component.sass"],
-"names": [],
-"file": "app.component.css"
-}
+{"version":3,"sourceRoot":"","sources":["app.component.sass"],"names":[],"mappings":"AAAQ;AAER;EACE;EACA;EACA;EACA;EACA;EACA;EACA;EACA","file":"app.component.css"}
