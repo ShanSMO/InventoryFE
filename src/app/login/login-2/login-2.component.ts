@@ -3,6 +3,7 @@ import {NgxUiLoaderService} from 'ngx-ui-loader';
 import {Router} from '@angular/router';
 import {UserService} from '../../services/user.service';
 import {FormControl, FormGroup} from '@angular/forms';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-login-2',
@@ -19,10 +20,24 @@ export class Login2Component implements OnInit {
     userPassword: new FormControl()
   });
 
+  welcomeText: any = '';
+
   constructor(private userService: UserService, private route: Router,
               private ngxService: NgxUiLoaderService) { }
 
   ngOnInit() {
+    this.setWelcomeText();
+  }
+
+  setWelcomeText() {
+    const currentTime = new Date();
+    console.log(moment().format('a'));
+    if (moment().format('a') === 'am') {
+      this.welcomeText = 'Hi , Goode Morning !';
+    } else {
+      this.welcomeText = 'Hi , Goode Evening !';
+    }
+
   }
 
   userLogin() {

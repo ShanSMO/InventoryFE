@@ -16,7 +16,7 @@ export class CompanyService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const options = { headers: headers };
 
-    return this.httpClient.post(GlobalProperties.API_URL.concat(EndPoints.CREATE_COMPANY), request, this.httpRequest.options)
+    return this.httpClient.post(GlobalProperties.API_URL.concat(EndPoints.CREATE_COMPANY), request, this.httpRequest.optionsAnyUser)
       .map((response: Response)  => {
           return response;
         }
