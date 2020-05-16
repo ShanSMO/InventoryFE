@@ -32,7 +32,7 @@
     "chart.js": "^2.7.3",
     "core-js": "^2.4.1",
     "font-awesome": "^4.7.0",
-    "jquery": "^3.3.1",
+    "jquery": "^3.5.0",
     "moment": "^2.24.0",
     "ng-auto-complete": "^4.1.4",
     "ng2-charts": "^1.6.0",
