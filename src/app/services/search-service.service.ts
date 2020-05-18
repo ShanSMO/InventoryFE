@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {EndPoints} from '../end-points';
-import {GlobalProperties} from '../global-properties';
+import {environment} from '../../environments/environment';
 import {HttpReq} from '../http-req';
 
 @Injectable()
@@ -16,7 +16,7 @@ export class SearchServiceService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const options = { headers: headers };
 
-    return this.httpClient.post(GlobalProperties.API_URL.concat(EndPoints.SUPPLIER_SEARCH), request, this.httpRequest.options)
+    return this.httpClient.post(environment.API_URL.concat(EndPoints.SUPPLIER_SEARCH), request, this.httpRequest.options)
       .map((response: Response)  => {
           return response;
         }
@@ -27,7 +27,7 @@ export class SearchServiceService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const options = { headers: headers };
 
-    return this.httpClient.post(GlobalProperties.API_URL.concat(EndPoints.CUSTOMER_SEARCH), request, this.httpRequest.options)
+    return this.httpClient.post(environment.API_URL.concat(EndPoints.CUSTOMER_SEARCH), request, this.httpRequest.options)
       .map((response: Response)  => {
           return response;
         }
@@ -38,7 +38,7 @@ export class SearchServiceService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const options = { headers: headers };
 
-    return this.httpClient.post(GlobalProperties.API_URL.concat(EndPoints.PRODUCT_SEARCH), request, this.httpRequest.options)
+    return this.httpClient.post(environment.API_URL.concat(EndPoints.PRODUCT_SEARCH), request, this.httpRequest.options)
       .map((response: Response)  => {
           return response;
         }
@@ -49,7 +49,7 @@ export class SearchServiceService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const options = { headers: headers };
 
-    return this.httpClient.post(GlobalProperties.API_URL.concat(EndPoints.CATEGORY_SEARCH), request, this.httpRequest.options)
+    return this.httpClient.post(environment.API_URL.concat(EndPoints.CATEGORY_SEARCH), request, this.httpRequest.options)
       .map((response: Response)  => {
           return response;
         }
@@ -60,7 +60,7 @@ export class SearchServiceService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const options = { headers: headers };
 
-    return this.httpClient.post(GlobalProperties.API_URL.concat(EndPoints.SUB_CATEGORY_SEARCH), request, this.httpRequest.options)
+    return this.httpClient.post(environment.API_URL.concat(EndPoints.SUB_CATEGORY_SEARCH), request, this.httpRequest.options)
       .map((response: Response)  => {
           return response;
         }
@@ -71,7 +71,7 @@ export class SearchServiceService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const options = { headers: headers };
 
-    return this.httpClient.post(GlobalProperties.API_URL.concat(EndPoints.SALES_SEARCH), request, this.httpRequest.options)
+    return this.httpClient.post(environment.API_URL.concat(EndPoints.SALES_SEARCH), request, this.httpRequest.options)
       .map((response: Response)  => {
           return response;
         }
@@ -82,7 +82,7 @@ export class SearchServiceService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const options = { headers: headers };
 
-    return this.httpClient.post(GlobalProperties.API_URL.concat(EndPoints.PO_SEARCH), request, this.httpRequest.options)
+    return this.httpClient.post(environment.API_URL.concat(EndPoints.PO_SEARCH), request, this.httpRequest.options)
       .map((response: Response)  => {
           return response;
         }
@@ -93,7 +93,7 @@ export class SearchServiceService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const options = { headers: headers };
 
-    return this.httpClient.post(GlobalProperties.API_URL.concat(EndPoints.STOCK_SEARCH), request, this.httpRequest.options)
+    return this.httpClient.post(environment.API_URL.concat(EndPoints.STOCK_SEARCH), request, this.httpRequest.options)
       .map((response: Response)  => {
           return response;
         }
@@ -104,7 +104,7 @@ export class SearchServiceService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const options = { headers: headers };
 
-    return this.httpClient.post(GlobalProperties.API_URL.concat(EndPoints.USERS_SEARCH), request, this.httpRequest.options)
+    return this.httpClient.post(environment.API_URL.concat(EndPoints.USERS_SEARCH), request, this.httpRequest.options)
       .map((response: Response)  => {
           return response;
         }

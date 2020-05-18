@@ -1,32 +1,71 @@
-<div class="content-bg">
-  <div class="row" style="width: 100%;background: #e9e9e9;padding: 5px;margin: 5px 0;" >
-    <div class="col-md-2 dash-product" >
-      <a routerLink="/product-list" class="dash-itm">
-        <h2 style="font-size: 30px;color: #666;border-bottom: 1px solid #4865923b;">{{statData.productCount}}</h2>
-        <h4 style="font-size: 16px;color: #6c6c6c;">Products</h4>
-      </a>
+<div class="content-bg" >
+  <div style="padding: 15px;background-color: #f3f3f3;">
+    <span style="color: #6e6e6e;font-weight: 600;">Welcome to Inventory Dashboard</span>
+  </div>
+  <div class="row" style="width: 100%;background: #f3f3f3;padding: 5px;margin: 0 0 5px 0;" >
+    <div class="col-md-3 p-0">
+      <div style="background-color: #fff;border-radius: 5px;height:350px;box-shadow: 0 0 3px #c1c1c1;padding: 10px;margin: 0 10px;">
+        <span style="font-weight: 400;color: #6e6e6e;font-size: 13px;">Economical Analytic</span>
+      </div>
+    </div>
+    <div class="col-md-9 p-0">
+      <div style="background-color: #fff;border-radius: 5px;height:350px;box-shadow: 0 0 3px #c1c1c1;padding: 10px;margin: 0 10px;">
+      <div>
+        <span style="font-weight: 400;color: #6e6e6e;font-size: 13px;">Weekly Summary</span>
+      </div>
+      <div class="row no-gutters">
+        <div class="col-md-3 a-c" style="height: 100px;text-align: center;padding: 5px;">
+          <div>1250{{statData.productCount}}</div>
+        </div>
+        <div class="col-md-3 a-c" style="height: 100px;text-align: center;padding: 5px;">
+          <div>12{{statData.customerCount}}</div>
+        </div>
+        <div class="col-md-3 a-c" style="height: 100px;text-align: center;padding: 5px;">
+          <div>10{{statData.supplierCount}}</div>
+        </div>
+        <div class="col-md-3 a-c" style="height: 100px;text-align: center;padding: 5px;">
+          <div>4000{{statData.salesCount}}</div>
+        </div>
+      </div>
+      </div>
     </div>
 
-    <div class="col-md-2 dash-product" >
-      <a routerLink="/customer-list" class="dash-itm">
-        <h2 style="font-size: 30px;color: #666;border-bottom: 1px solid #4865923b;">{{statData.customerCount}}</h2>
-        <h4 style="font-size: 16px;color: #6c6c6c;">Customers</h4>
-      </a>
-    </div>
 
-    <div class="col-md-2 dash-product">
-      <a routerLink="/supplier-list"  class="dash-itm">
-        <h2 style="font-size: 30px;color: #666;border-bottom: 1px solid #4865923b;">{{statData.supplierCount}}</h2>
-        <h4 style="font-size: 16px;color: #6c6c6c;">Suppliers</h4>
-      </a>
-    </div>
+<!--    <div class="col-md-2 dash-product p-itm-r" >-->
+<!--      <a routerLink="/product-list" class="dash-itm">-->
+<!--        <div class="c-hdr">-->
+<!--          <span>Products</span>-->
+<!--        </div>-->
+<!--        <div style="padding: 15px;">-->
+<!--          <span style="font-size: 30px;">{{statData.productCount}}</span>-->
+<!--        </div>-->
+<!--      </a>-->
+<!--    </div>-->
 
-    <div class="col-md-2 dash-product">
-      <a routerLink="/sales-history"  class="dash-itm">
-        <h2 style="font-size: 30px;color: #666;border-bottom: 1px solid #4865923b;">{{statData.salesCount}}</h2>
-        <h4 style="font-size: 16px;color: #6c6c6c;">Sales</h4>
-      </a>
-    </div>
+<!--    <div class="col-md-2 dash-product p-itm-b" >-->
+<!--      <a routerLink="/customer-list" class="dash-itm">-->
+<!--        <div class="c-hdr">-->
+<!--          <span>Customers</span>-->
+<!--        </div>-->
+<!--        <div style="padding: 15px;">-->
+<!--          <span style="font-size: 30px;">{{statData.customerCount}}</span>-->
+<!--        </div>-->
+<!--      </a>-->
+<!--    </div>-->
+
+<!--    <div class="col-md-2 dash-product">-->
+<!--      <a routerLink="/supplier-list"  class="dash-itm">-->
+<!--        <h2 style="font-size: 30px;color: #666;border-bottom: 1px solid #4865923b;">{{statData.supplierCount}}</h2>-->
+<!--        <h4 style="font-size: 16px;color: #6c6c6c;">Suppliers</h4>-->
+<!--      </a>-->
+<!--    </div>-->
+
+<!--    <div class="col-md-2 dash-product">-->
+<!--      <a routerLink="/sales-history"  class="dash-itm">-->
+<!--        <h2 style="font-size: 30px;color: #666;border-bottom: 1px solid #4865923b;">{{statData.salesCount}}</h2>-->
+<!--        <h4 style="font-size: 16px;color: #6c6c6c;">Sales</h4>-->
+<!--      </a>-->
+<!--    </div>-->
 
     <!--<div class="col-md-2" style="text-align: center;background: #fff;padding: 15px;border-radius: 3px;margin: 0 4px;">-->
       <!--<a routerLink="/sales-history">-->

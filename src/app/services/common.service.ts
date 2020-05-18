@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {EndPoints} from '../end-points';
-import {GlobalProperties} from '../global-properties';
+import {environment} from '../../environments/environment';
 import {HttpReq} from '../http-req';
 
 @Injectable()
@@ -25,7 +25,7 @@ export class CommonService {
 
     }
 
-    return this.httpClient.post(GlobalProperties.API_URL.concat(endPoint), requestBody, this.httpRequest.options)
+    return this.httpClient.post(environment.API_URL.concat(endPoint), requestBody, this.httpRequest.options)
       .map((response: Response)  => {
           return response;
         }

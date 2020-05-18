@@ -20,15 +20,15 @@
   </div>
 
   <form [formGroup]="customerForm">
-    <div class="row , cus-form">
+    <div class="row cus-form">
 
       <div class="col-md-4 customer-d-div">
-        <div class="row ">
+        <div class="row ele-gap">
           <div class="col-md-3">
             <label>Name * </label>
           </div>
           <div class="col-md-9">
-            <input type="text" placeholder="Name" class="input-box col-md-12" formControlName="firstName" tabindex="1">
+            <input type="text" placeholder="Name" class="input-box col-md-12 " formControlName="firstName" tabindex="1">
             <div class="invalid-bg" *ngIf="customerForm.get('firstName').touched && customerForm.get('firstName').errors">
               <p class="invalid-text" *ngIf="customerForm.get('firstName').errors.required">Name is required</p>
               <p class="invalid-text" *ngIf="customerForm.get('firstName').errors.pattern">Invalid name</p>
@@ -36,7 +36,7 @@
           </div>
         </div>
 
-        <div class="row ">
+        <div class="row ele-gap">
           <div class="col-md-3">
             <label>Phone</label>
           </div>
@@ -48,7 +48,7 @@
           </div>
         </div>
 
-        <div class="row">
+        <div class="row ele-gap">
           <div class="col-md-3">
             <label>Fax</label>
           </div>
@@ -60,7 +60,7 @@
           </div>
         </div>
 
-        <div class="row">
+        <div class="row ele-gap">
           <div class="col-md-3">
             <label>E-mail</label>
           </div>
@@ -72,7 +72,7 @@
           </div>
         </div>
 
-        <div class="row">
+        <div class="row ele-gap">
           <div class="col-md-3">
             <label>Website</label>
           </div>
@@ -89,7 +89,7 @@
 
 
       <div class="col-md-4 customer-d-div">
-        <div class="row" formGroupName="address">
+        <div class="row ele-gap" formGroupName="address">
           <div class="col-md-3">
             <label>Address</label>
           </div>

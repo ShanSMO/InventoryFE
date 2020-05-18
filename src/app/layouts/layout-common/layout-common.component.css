@@ -1,8 +1,6 @@
 .date-div {
-  background: rgb(13, 117, 140);
-  border-radius: 3px;
   padding: 3px 20px 3px 20px;
-  color: #fff;
+  color: #00bf93;
   font-size: 12px;
   font-weight: 600;
 }
@@ -71,7 +69,6 @@ small {
   font-size: 10px;
 }
 
-
 .divider {
   border-bottom: 1px solid #ccc;
 }
@@ -81,10 +78,9 @@ small {
 }
 
 .router-content {
-  background: #f2f1f0;
+  background: #333;
   width: 100%;
   height: 40px;
-  border-bottom: 1px solid #bababa;
   padding: 8px;
   position: fixed !important;
   z-index: 100 !important;
@@ -105,14 +101,15 @@ small {
 }
 
 .info-bg {
-  background: #11a963
+  background: #11a963;
 }
+
 .warn-bg {
-  background: #000
+  background: #000;
 }
 
 .error-bg {
-  background: #e7ac05
+  background: #e7ac05;
 }
 
 /*# sourceMappingURL=layout-common.component.css.map */

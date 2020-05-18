@@ -3,12 +3,13 @@
 <head>
   <meta charset="utf-8">
   <title>E-BIZ</title>
-  <base href="/">
+  <base href="">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="stylesheet" href="assets/styles/animate.css">
   <script src="assets/js/jquery/dist/jquery.min.js"></script>
+  <script src="assets/js/feather.min.js"></script>
 
 </head>
 <body style="background: #fff;overflow: hidden;" >
@@ -17,6 +18,7 @@
   $(function () {
     $('body').popover('enable');
     $('[data-toggle="popover"]').popover();
+    feather.replace();
   });
 </script>
 </body>

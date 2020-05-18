@@ -1,12 +1,17 @@
 <div class="animated side-nav" id="sideNav">
+  <div style="padding-bottom: 15px;background-color: #313131;">
   <div class="clearfix text-center" style="position: relative;" id="profile">
     <div style="color: #ffffff;position:absolute;right: 5px;font-size: 13px;">
       <i class="fa fa-edit"></i>
     </div>
     <img [src]="logoImage" class="company-logo">
     <div style="margin-top: 15px;">
-      <p class="log-user">{{loggedCompany}}</p>
-      <p class="log-user-name">{{loggedInUser}}</p>
+      <div>
+        <span class="log-user">{{loggedCompany}}</span>
+      </div>
+      <div>
+        <span class="log-user-name">( {{loggedInUser}} )</span>
+      </div>
     </div>
   </div>
   <div class="clearfix text-center" style="position: relative;" id="profile-mini">
@@ -14,13 +19,20 @@
     </div>
     <img [src]="logoImage" style="width: 40px;margin-top: 10px;margin-bottom: 10px;border-radius: 50px;">
   </div>
-
+  </div>
 
   <ul class="side-nav-item">
 
     <ng-container *ngFor="let navItem of accessibleItems">
       <li class="nav-item"   *ngIf="navItem.privilegeType == 'SIDE_MENU_ITEM' && navItem.level == 1" [routerLink]="navItem.url" (click)="getPrivileges(navItem)">
-        <i [class]="'fa ' + navItem.icon"></i> &nbsp; <label class="menu-item-lbl">{{navItem.privilegeName}}</label>
+        <i *ngIf="navItem.icon == 'award' " data-feather="award"></i>
+        <i *ngIf="navItem.icon == 'home' " data-feather="home"></i>
+        <i *ngIf="navItem.icon == 'folder' " data-feather="folder"></i>
+        <i *ngIf="navItem.icon == 'grid' " data-feather="grid"></i>
+        <i *ngIf="navItem.icon == 'settings' " data-feather="settings"></i>
+        <i *ngIf="navItem.icon == 'shopping-cart' " data-feather="shopping-cart"></i>
+        &nbsp;
+        <label class="menu-item-lbl">{{navItem.privilegeName}}</label>
       </li>
     </ng-container>
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
-import {GlobalProperties} from '../global-properties';
+import {environment} from '../../environments/environment';
 import {EndPoints} from '../end-points';
 
 @Injectable()
@@ -13,7 +13,7 @@ export class UserService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const options = { headers: headers };
 
-    return this.httpClient.post(GlobalProperties.API_URL.concat(EndPoints.USER_LOGIN), request, options)
+    return this.httpClient.post(environment.API_URL.concat(EndPoints.USER_LOGIN), request, options)
       .map((response: Response)  => {
           return response;
         }
@@ -24,7 +24,7 @@ export class UserService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const options = { headers: headers };
 
-    return this.httpClient.post(GlobalProperties.API_URL.concat(EndPoints.USER_CREATE), request, options)
+    return this.httpClient.post(environment.API_URL.concat(EndPoints.USER_CREATE), request, options)
       .map((response: Response)  => {
           return response;
         }
@@ -35,7 +35,7 @@ export class UserService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const options = { headers: headers };
 
-    return this.httpClient.post(GlobalProperties.API_URL.concat(EndPoints.LOAD_BY_COMPANY), request, options)
+    return this.httpClient.post(environment.API_URL.concat(EndPoints.LOAD_BY_COMPANY), request, options)
       .map((response: Response)  => {
           return response;
         }
